@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
 public class LoadData : MonoBehaviour
 {
-    [SerializeField] private string _fileName = default;
-
-    private Dictionary<int, int> _dic = new();
+    private TextAsset _file = default;
+    private readonly List<string[]> _datas = new();
 
     private void Start()
     {
@@ -16,38 +14,36 @@ public class LoadData : MonoBehaviour
         Dump();
     }
 
+    /// <summary>
+    /// データロード
+    /// </summary>
     public void LoadCsv()
     {
-        string filePath = Application.persistentDataPath + "/" + _fileName;
+        _file = Resources.Load("StartState") as TextAsset;
+        StringReader reader = new(_file.text);
+        //1行捨てる
+        _ = reader.ReadLine();
 
-        using (StreamReader fs = new StreamReader(filePath))
+        while (reader.Peek() != -1)
         {
-            fs.ReadLine();  // 一行飛ばす
-
-            while (true)
-            {
-                // 一行ずつ読みこんで処理する
-                string line = fs.ReadLine();
-
-                // line に何も入っていなかったら終わったとみなして処理を終わる
-                if (string.IsNullOrEmpty(line))
-                {
-                    break;
-                }
-
-                var row = line.Split(',');
-                _dic.Add(int.Parse(row[0]), int.Parse(row[1]));
-            }
+            var line = reader.ReadLine().Split(',');
+            _datas.Add(line);
         }
 
         Debug.Log("Finished.");
     }
 
-    public void Dump()
+    /// <summary>
+    /// 確認用
+    /// </summary>
+    private void Dump()
     {
-        foreach (var row in _dic)
+        for (int i = 0; i < _datas.Count; i++)
         {
-            Debug.Log($"{row.Key} : {row.Value}");
+            for (int j = 0; j < _datas[i].Length; j++)
+            {
+                Debug.Log(_datas[i][j]);
+            }
         }
     }
 }
