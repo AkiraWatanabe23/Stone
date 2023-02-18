@@ -4,20 +4,26 @@ using System.IO;
 
 public class LoadData : MonoBehaviour
 {
+    [SerializeField] private GameObject _boardPrefab = default;
+
     private TextAsset _file = default;
     private readonly List<string[]> _datas = new();
 
-    private void Start()
+    private void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         LoadCsv();
         Dump();
+    }
+
+    private void Start()
+    {
+        BoardSet();
     }
 
     /// <summary>
     /// データロード
     /// </summary>
-    public void LoadCsv()
+    private void LoadCsv()
     {
         _file = Resources.Load("StartState") as TextAsset;
         StringReader reader = new(_file.text);
@@ -43,6 +49,23 @@ public class LoadData : MonoBehaviour
             for (int j = 0; j < _datas[i].Length; j++)
             {
                 Debug.Log(_datas[i][j]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// ボードの初期設定
+    /// </summary>
+    private void BoardSet()
+    {
+        for (int i = 0; i < _datas.Count; i++)
+        {
+            for (int j = 0; j < _datas[i].Length; j++)
+            {
+                if (_datas[i][j] == "0")
+                {
+                    Instantiate(_boardPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                }
             }
         }
     }
