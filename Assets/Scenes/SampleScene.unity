@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1248087287}
   - component: {fileID: 1248087288}
   m_Layer: 0
-  m_Name: System
+  m_Name: Systems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,4 +345,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a06d3397a75c54eb5ea438b6c75644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardPrefab: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
+  _boardPrefab_one: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
+  _boardPrefab_two: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}

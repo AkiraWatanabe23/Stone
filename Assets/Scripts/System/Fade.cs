@@ -19,7 +19,8 @@ public class Fade : MonoBehaviour
 
     private void Start()
     {
-        StartFadeIn();
+        if (_fadePanel != null)
+            StartFadeIn();
     }
 
     public static void StartFadeIn(Action action = null)

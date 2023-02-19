@@ -4,7 +4,8 @@ using System.IO;
 
 public class LoadData : MonoBehaviour
 {
-    [SerializeField] private GameObject _boardPrefab = default;
+    [SerializeField] private GameObject _boardPrefab_one = default;
+    [SerializeField] private GameObject _boardPrefab_two = default;
 
     private TextAsset _file = default;
     private readonly List<string[]> _datas = new();
@@ -48,8 +49,12 @@ public class LoadData : MonoBehaviour
             {
                 if (_datas[i][j] == "0")
                 {
-                    Instantiate(
-                        _boardPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                    if ((i + j) % 2 == 0)
+                        Instantiate(
+                            _boardPrefab_one, new Vector3(i, 0, j), Quaternion.identity);
+                    else
+                        Instantiate(
+                            _boardPrefab_two, new Vector3(i, 0, j), Quaternion.identity);
                 }
             }
         }
