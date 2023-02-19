@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// キーボードによるUI操作
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Selectable _startElement = default;
