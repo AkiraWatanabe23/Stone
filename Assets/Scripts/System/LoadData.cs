@@ -12,7 +12,6 @@ public class LoadData : MonoBehaviour
     private void Awake()
     {
         LoadCsv();
-        Dump();
     }
 
     private void Start()
@@ -35,22 +34,7 @@ public class LoadData : MonoBehaviour
             var line = reader.ReadLine().Split(',');
             _datas.Add(line);
         }
-
         Debug.Log("Finished.");
-    }
-
-    /// <summary>
-    /// 確認用
-    /// </summary>
-    private void Dump()
-    {
-        for (int i = 0; i < _datas.Count; i++)
-        {
-            for (int j = 0; j < _datas[i].Length; j++)
-            {
-                Debug.Log(_datas[i][j]);
-            }
-        }
     }
 
     /// <summary>
@@ -64,7 +48,8 @@ public class LoadData : MonoBehaviour
             {
                 if (_datas[i][j] == "0")
                 {
-                    Instantiate(_boardPrefab, new Vector3(i, 0, j), Quaternion.identity);
+                    Instantiate(
+                        _boardPrefab, new Vector3(i, 0, j), Quaternion.identity);
                 }
             }
         }
