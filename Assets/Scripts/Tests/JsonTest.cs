@@ -8,8 +8,6 @@ public class JsonTest
     [SerializeField] private int _attack = 10;
     [SerializeField] private float _speed = 1f;
 
-    private string jsonStr = default;
-
     public int HP { get => _hp; set => _hp = value; }
     public int Attack { get => _attack; set => _attack = value; }
     public float Speed { get => _speed; set => _speed = value; }

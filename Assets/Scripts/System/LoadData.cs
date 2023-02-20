@@ -2,6 +2,9 @@
 using UnityEngine;
 using System.IO;
 
+/// <summary>
+/// csvデータのロード
+/// </summary>
 public class LoadData : MonoBehaviour
 {
     [SerializeField] private GameObject _boardPrefab_one = default;
