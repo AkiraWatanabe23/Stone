@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 勝利判定
+/// </summary>
 public class Judgment : MonoBehaviour
 {
     private List<string[]> _board = new();
@@ -9,7 +12,6 @@ public class Judgment : MonoBehaviour
     /// <summary>
     /// 横方向の判定
     /// </summary>
-    /// <returns> 判定結果 </returns>
     private JudgeResult Row()
     {
         JudgeResult result = JudgeResult.DRAW;
@@ -21,6 +23,9 @@ public class Judgment : MonoBehaviour
                 result = JudgeResult.WHITE_WIN;
             else if (checking == "-1,-1,-1,-1,-1")
                 result = JudgeResult.BLACK_WIN;
+
+            if (result != JudgeResult.DRAW)
+                break;
         }
         return result;
     }
@@ -28,7 +33,6 @@ public class Judgment : MonoBehaviour
     /// <summary>
     /// 縦方向の判定
     /// </summary>
-    /// <returns> 判定結果 </returns>
     private JudgeResult Column()
     {
         JudgeResult result = JudgeResult.DRAW;
@@ -68,7 +72,6 @@ public class Judgment : MonoBehaviour
     /// <summary>
     /// 斜め方向の判定
     /// </summary>
-    /// <returns> 判定結果 </returns>
     private JudgeResult Diagonal()
     {
         JudgeResult result = JudgeResult.DRAW;
