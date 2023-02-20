@@ -1,9 +1,10 @@
 ﻿using Constants;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Judgment : MonoBehaviour
 {
-    private string[] _board = new string[5];
+    private List<string[]> _board = new();
 
     /// <summary>
     /// 横方向の判定
@@ -12,14 +13,15 @@ public class Judgment : MonoBehaviour
     private JudgeResult Row()
     {
         JudgeResult result = JudgeResult.DRAW;
-        for (int i = 0; i < _board.Length; i++)
+        for (int i = 0; i < _board.Count; i++)
         {
-            if (_board[i] == "OOOOO")
+            string checking = string.Join(",", _board[i]);
+
+            if (checking == "1,1,1,1,1")
                 result = JudgeResult.WHITE_WIN;
-            else if (_board[i] == "XXXXX")
+            else if (checking == "-1,-1,-1,-1,-1")
                 result = JudgeResult.BLACK_WIN;
         }
-
         return result;
     }
 
@@ -30,37 +32,36 @@ public class Judgment : MonoBehaviour
     private JudgeResult Column()
     {
         JudgeResult result = JudgeResult.DRAW;
-        for (int i = 0; i < _board.Length; i++)
+        for (int i = 0; i < _board.Count; i++)
         {
-            char pivot = ' ';
+            string pivot = " ";
             int count = 0;
 
-            for (int j = 0; j < _board.Length; j++)
+            for (int j = 0; j < _board.Count; j++)
             {
                 var stone = _board[j][i];
 
-                if (pivot == ' ')
+                if (pivot == " ")
                     pivot = stone;
 
-                if (stone != '.' && pivot == stone)
+                if (stone != "0" && pivot == stone)
                     count++;
                 else
                     break;
 
                 if (count == 5)
                 {
-                    if (stone == 'O')
+                    if (stone == "1")
                     {
                         result = JudgeResult.WHITE_WIN;
                     }
-                    else if (stone == 'X')
+                    else if (stone == "-1")
                     {
                         result = JudgeResult.BLACK_WIN;
                     }
                 }
             }
         }
-
         return result;
     }
 
@@ -71,11 +72,11 @@ public class Judgment : MonoBehaviour
     private JudgeResult Diagonal()
     {
         JudgeResult result = JudgeResult.DRAW;
-        bool[] dirs = new bool[] { true, false };
+        bool[] dirs = { true, false };
 
         for (int i = 0; i < dirs.Length; i++)
         {
-            char pivot = ' ';
+            string pivot = " ";
             int count = 0;
             int j =
                 i == 0
@@ -88,10 +89,10 @@ public class Judgment : MonoBehaviour
             {
                 var stone = _board[i][j];
 
-                if (pivot == ' ')
+                if (pivot == " ")
                     pivot = stone;
 
-                if (stone != '.' && stone == pivot)
+                if (stone != "0" && stone == pivot)
                     count++;
 
                 j += j_diff;
@@ -99,18 +100,17 @@ public class Judgment : MonoBehaviour
 
             if (count == 5)
             {
-                if (pivot == 'O')
+                if (pivot == "1")
                 {
                     result = JudgeResult.WHITE_WIN;
                 }
-                else if (pivot == 'X')
+                else if (pivot == "-1")
                 {
                     result = JudgeResult.BLACK_WIN;
                 }
                 break;
             }
         }
-
         return result;
     }
 }

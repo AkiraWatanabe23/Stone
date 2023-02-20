@@ -13,14 +13,23 @@ public class LoadData : MonoBehaviour
     private TextAsset _file = default;
     private readonly List<string[]> _datas = new();
 
+    public List<string[]> Datas => _datas;
+
     private void Awake()
     {
         LoadCsv();
+        BoardSet();
     }
 
-    private void Start()
+    private void Update()
     {
-        BoardSet();
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            for (int i = 0; i < _datas.Count; i++)
+            {
+                Debug.Log(_datas[i]);
+            }
+        }
     }
 
     /// <summary>
@@ -38,7 +47,7 @@ public class LoadData : MonoBehaviour
             var line = reader.ReadLine().Split(',');
             _datas.Add(line);
         }
-        Debug.Log("Finished.");
+        Debug.Log("Load finished.");
     }
 
     /// <summary>

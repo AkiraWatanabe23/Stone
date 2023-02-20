@@ -22,7 +22,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        //キーは仮
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _setting.gameObject.SetActive(!_setting.gameObject.activeSelf);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CamRotate : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class CamRotate : MonoBehaviour
 
     private void Update()
     {
-        //他でArrowキーを使う場合と区別するため、LeftShiftを押している間にする
+        //他のArrowキーを使う場合と区別するため、LeftShiftを押しながらにする
         if (Input.GetKey(KeyCode.LeftShift))
         {
             float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x;
