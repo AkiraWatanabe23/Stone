@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CamRotate : MonoBehaviour
 {
+    [Tooltip("カメラの回転の基準となる座標")]
     [SerializeField] private Vector3 _pos = new(0, 0, 0);
+    [Tooltip("回転速度(各回転方向ごと)")]
     [SerializeField] private Vector2 _rotateSpeed = new(0, 0);
 
     private void Update()
     {
+        //他でArrowキーを使う場合と区別するため、LeftShiftを押している間にする
         if (Input.GetKey(KeyCode.LeftShift))
         {
             float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x;
