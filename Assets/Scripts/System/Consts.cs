@@ -23,4 +23,11 @@ namespace Constants
         GAME_SCENE,
         RESULT_SCENE,
     }
+
+    public enum JudgeResult
+    {
+        DRAW,
+        WHITE_WIN,
+        BLACK_WIN,
+    }
 }

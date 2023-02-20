@@ -25,11 +25,7 @@ public class UIManager : MonoBehaviour
         //キーは仮
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _setting.gameObject.SetActive(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _setting.gameObject.SetActive(false);
+            _setting.gameObject.SetActive(!_setting.gameObject.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
