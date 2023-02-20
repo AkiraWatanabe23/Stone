@@ -1,11 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public void Log()
+    [SerializeField] private JsonTest _json = default;
+
+    public void SaveToJson()
     {
-        Debug.Log(gameObject.name);
+        _json.SaveToJson();
+    }
+
+    public void LoadFromJson()
+    {
+        _json.LoadFromJson();
     }
 }
