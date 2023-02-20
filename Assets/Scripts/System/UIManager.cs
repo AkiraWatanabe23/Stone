@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Image _setting = default;
     [SerializeField] private Selectable _startElement = default;
 
     private Selectable _currentElement = default;
@@ -23,6 +24,16 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        //キーは仮
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _setting.gameObject.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _setting.gameObject.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (_currentElement != null)
