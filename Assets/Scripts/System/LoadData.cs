@@ -12,24 +12,14 @@ public class LoadData
     [SerializeField] private GameObject _prefabTwo = default;
 
     private TextAsset _file = default;
+    private List<string[]> _board = new();
 
-    public List<string[]> Board { get; set; }
+    public List<string[]> Board { get => _board; set => _board = value; }
 
     public void Awake()
     {
         LoadCsv();
         BoardSet();
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            for (int i = 0; i < Board.Count; i++)
-            {
-                Debug.Log(Board[i]);
-            }
-        }
     }
 
     /// <summary>
@@ -45,7 +35,7 @@ public class LoadData
         while (reader.Peek() != -1)
         {
             var line = reader.ReadLine().Split(',');
-            Board.Add(line);
+            _board.Add(line);
         }
         Debug.Log("Load finished.");
     }
@@ -55,11 +45,11 @@ public class LoadData
     /// </summary>
     private void BoardSet()
     {
-        for (int i = 0; i < Board.Count; i++)
+        for (int i = 0; i < _board.Count; i++)
         {
-            for (int j = 0; j < Board[i].Length; j++)
+            for (int j = 0; j < _board[i].Length; j++)
             {
-                if (Board[i][j] == "0")
+                if (_board[i][j] == "0")
                 {
                     if ((i + j) % 2 == 0)
                         Object.Instantiate(
