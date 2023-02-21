@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// キーボードによるUI操作
 /// </summary>
-public class UIManager : MonoBehaviour
+public class UISelect : MonoBehaviour
 {
     [SerializeField] private Image _setting = default;
     [SerializeField] private Selectable _startElement = default;

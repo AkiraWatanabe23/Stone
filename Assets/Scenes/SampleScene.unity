@@ -362,5 +362,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turn: 0
   _load:
-    _boardPrefab_one: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
-    _boardPrefab_two: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
+    _prefabOne: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
+    _prefabTwo: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}

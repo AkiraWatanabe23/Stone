@@ -8,13 +8,12 @@ using System.IO;
 /// </summary>
 public class LoadData
 {
-    [SerializeField] private GameObject _boardPrefab_one = default;
-    [SerializeField] private GameObject _boardPrefab_two = default;
+    [SerializeField] private GameObject _prefabOne = default;
+    [SerializeField] private GameObject _prefabTwo = default;
 
     private TextAsset _file = default;
-    private readonly List<string[]> _datas = new();
 
-    public List<string[]> Datas => _datas;
+    public List<string[]> Board { get; set; }
 
     public void Awake()
     {
@@ -26,9 +25,9 @@ public class LoadData
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            for (int i = 0; i < _datas.Count; i++)
+            for (int i = 0; i < Board.Count; i++)
             {
-                Debug.Log(_datas[i]);
+                Debug.Log(Board[i]);
             }
         }
     }
@@ -46,7 +45,7 @@ public class LoadData
         while (reader.Peek() != -1)
         {
             var line = reader.ReadLine().Split(',');
-            _datas.Add(line);
+            Board.Add(line);
         }
         Debug.Log("Load finished.");
     }
@@ -56,18 +55,18 @@ public class LoadData
     /// </summary>
     private void BoardSet()
     {
-        for (int i = 0; i < _datas.Count; i++)
+        for (int i = 0; i < Board.Count; i++)
         {
-            for (int j = 0; j < _datas[i].Length; j++)
+            for (int j = 0; j < Board[i].Length; j++)
             {
-                if (_datas[i][j] == "0")
+                if (Board[i][j] == "0")
                 {
                     if ((i + j) % 2 == 0)
                         Object.Instantiate(
-                            _boardPrefab_one, new Vector3(i, 0, j), Quaternion.identity);
+                            _prefabOne, new Vector3(i, 0, j), Quaternion.identity);
                     else
                         Object.Instantiate(
-                            _boardPrefab_two, new Vector3(i, 0, j), Quaternion.identity);
+                            _prefabTwo, new Vector3(i, 0, j), Quaternion.identity);
                 }
             }
         }
