@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private Turns _turn = default;
     [SerializeField] private LoadData _load = default;
-    [SerializeField] private PlayableStones _stones = default;
-    [SerializeField] private Judgment _judge = default;
 
     private List<string[]> _board = new();
     /// <summary> ターンの切り替え </summary>
     private bool _isSwitch = false;
+    private readonly PlayableStones _stones = new();
+    private readonly Judgment _judge = new();
 
     private void Awake()
     {
@@ -60,13 +61,8 @@ public class GameManager : MonoBehaviour
                 _stones.MovableStones(gameObject, _board);
                 break;
             case 3:
-                PassTurn();
+                _isSwitch = true;
                 break;
         }
-    }
-
-    private void PassTurn()
-    {
-        _isSwitch = true;
     }
 }

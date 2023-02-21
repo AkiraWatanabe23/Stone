@@ -1208,6 +1208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885058c5ed9ff3243a9b92c96fc5c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _players:
+  - {fileID: 2417456842968965468, guid: c4e41d78d1418a64cbed528f11715669, type: 3}
+  - {fileID: 3968282573149140767, guid: 8688efdaac2d42c47a4e53dcd725e78e, type: 3}
   _turn: 0
   _load:
     _prefabOne: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
