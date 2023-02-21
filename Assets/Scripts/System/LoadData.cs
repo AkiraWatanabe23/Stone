@@ -2,10 +2,11 @@
 using UnityEngine;
 using System.IO;
 
+[System.Serializable]
 /// <summary>
 /// csvデータのロード
 /// </summary>
-public class LoadData : MonoBehaviour
+public class LoadData
 {
     [SerializeField] private GameObject _boardPrefab_one = default;
     [SerializeField] private GameObject _boardPrefab_two = default;
@@ -15,13 +16,13 @@ public class LoadData : MonoBehaviour
 
     public List<string[]> Datas => _datas;
 
-    private void Awake()
+    public void Awake()
     {
         LoadCsv();
         BoardSet();
     }
 
-    private void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -62,10 +63,10 @@ public class LoadData : MonoBehaviour
                 if (_datas[i][j] == "0")
                 {
                     if ((i + j) % 2 == 0)
-                        Instantiate(
+                        Object.Instantiate(
                             _boardPrefab_one, new Vector3(i, 0, j), Quaternion.identity);
                     else
-                        Instantiate(
+                        Object.Instantiate(
                             _boardPrefab_two, new Vector3(i, 0, j), Quaternion.identity);
                 }
             }

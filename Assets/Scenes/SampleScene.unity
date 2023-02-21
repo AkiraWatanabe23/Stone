@@ -325,7 +325,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248087287}
-  - component: {fileID: 1248087288}
   - component: {fileID: 1248087289}
   m_Layer: 0
   m_Name: Systems
@@ -349,20 +348,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1248087288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248087286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33a06d3397a75c54eb5ea438b6c75644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boardPrefab_one: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
-  _boardPrefab_two: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
 --- !u!114 &1248087289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,3 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885058c5ed9ff3243a9b92c96fc5c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turn: 0
+  _load:
+    _boardPrefab_one: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
+    _boardPrefab_two: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}

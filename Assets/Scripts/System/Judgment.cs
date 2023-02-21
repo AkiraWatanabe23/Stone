@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 /// <summary>
 /// 勝利判定
 /// </summary>
-public class Judgment : MonoBehaviour
+public class Judgment
 {
     private List<string[]> _board = new();
 
     /// <summary>
     /// 横方向の判定
     /// </summary>
-    private JudgeResult Row()
+    public JudgeResult Row()
     {
         JudgeResult result = JudgeResult.DRAW;
         for (int i = 0; i < _board.Count; i++)
@@ -33,7 +34,7 @@ public class Judgment : MonoBehaviour
     /// <summary>
     /// 縦方向の判定
     /// </summary>
-    private JudgeResult Column()
+    public JudgeResult Column()
     {
         JudgeResult result = JudgeResult.DRAW;
         for (int i = 0; i < _board.Count; i++)
@@ -72,7 +73,7 @@ public class Judgment : MonoBehaviour
     /// <summary>
     /// 斜め方向の判定
     /// </summary>
-    private JudgeResult Diagonal()
+    public JudgeResult Diagonal()
     {
         JudgeResult result = JudgeResult.DRAW;
         bool[] dirs = { true, false };

@@ -24,6 +24,13 @@ namespace Constants
         RESULT_SCENE,
     }
 
+    public enum Turns
+    {
+        WHITE,
+        BLACK,
+        COUNT,
+    }
+
     public enum JudgeResult
     {
         DRAW,
