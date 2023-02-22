@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -12,10 +13,10 @@ public class LoadData
     [SerializeField] private GameObject _prefabTwo = default;
 
     private TextAsset _file = default;
-    private List<string[]> _board = new();
+    private List<int[]> _board = new();
     private List<GameObject[]> _boardState = new();
 
-    public List<string[]> Board { get => _board; set => _board = value; }
+    public List<int[]> Board { get => _board; set => _board = value; }
     public List<GameObject[]> BoardState { get => _boardState; set => _boardState = value; }
 
     public void Awake()
@@ -40,7 +41,7 @@ public class LoadData
 
         while (reader.Peek() != -1)
         {
-            var line = reader.ReadLine().Split(',');
+            var line = Array.ConvertAll(reader.ReadLine().Split(','), int.Parse);
             _board.Add(line);
         }
         Debug.Log("Load finished.");
@@ -55,18 +56,18 @@ public class LoadData
         {
             for (int j = 0; j < _board[i].Length; j++)
             {
-                if (_board[i][j] == "0")
+                if (_board[i][j] == 0)
                 {
                     if ((i + j) % 2 == 0)
                     {
                         _boardState[i][j] =
-                            Object.Instantiate(
+                            UnityEngine.Object.Instantiate(
                             _prefabOne, new Vector3(i, 0, j), Quaternion.identity);
                     }
                     else
                     {
                         _boardState[i][j] =
-                            Object.Instantiate(
+                            UnityEngine.Object.Instantiate(
                             _prefabTwo, new Vector3(i, 0, j), Quaternion.identity);
                     }
                 }

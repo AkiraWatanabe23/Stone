@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Turns _turn = default;
     [SerializeField] private LoadData _load = default;
 
-    private List<string[]> _board = new();
+    private List<int[]> _board = new();
     /// <summary> ターンの切り替え </summary>
     private bool _isSwitch = false;
     private readonly PlayableStones _stones = new();

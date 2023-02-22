@@ -11,26 +11,50 @@ public class StoneSelect : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.anyKeyDown)
+        {
+            Select(Input.inputString);
+        }
     }
 
-    private void Select()
+    private void Select(string input)
     {
-        KeyCode input = default;
-
         switch (input)
         {
-            case KeyCode.UpArrow:
-            case KeyCode.W:
+            case "w":
+                Debug.Log("input up");
+                MoveStone(0);
                 break;
-            case KeyCode.DownArrow:
-            case KeyCode.D:
+            case "d":
+                Debug.Log("input down");
+                MoveStone(1);
                 break;
-            case KeyCode.LeftArrow:
-            case KeyCode.A:
+            case "a":
+                Debug.Log("input left");
+                MoveStone(2);
                 break;
-            case KeyCode.RightArrow:
-            case KeyCode.S:
+            case "s":
+                Debug.Log("input right");
+                MoveStone(3);
+                break;
+        }
+    }
+
+    private void MoveStone(int dir)
+    {
+        switch (dir)
+        {
+            //上方向
+            case 0:
+                break;
+            //下方向
+            case 1:
+                break;
+            //左方向
+            case 2:
+                break;
+            //右方向
+            case 3:
                 break;
         }
     }
