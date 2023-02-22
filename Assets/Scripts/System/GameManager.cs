@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private Turns _turn = default;
     [SerializeField] private LoadData _load = default;
+    [SerializeField] private StoneSelect _select = default;
 
     private List<int[]> _board = new();
+    private List<GameObject[]> _objs = new();
     /// <summary> ターンの切り替え </summary>
     private bool _isSwitch = false;
     private readonly PlayableStones _stones = new();
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _board = _load.Board;
+        _select.Board = _load.BoardState;
+
         //スタートをランダムにする
         _turn = (Turns)Enum.ToObject(typeof(Turns), UnityEngine.Random.Range(0, (int)Turns.COUNT));
         Debug.Log(_turn);
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        _select.Update();
+
         //判定
         if (_isSwitch)
         {

@@ -19,7 +19,7 @@ public class CamRotate : MonoBehaviour
             float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x;
             float angleY = Input.GetAxis("Vertical") * _rotateSpeed.y;
 
-            transform.RotateAround(_pos, Vector3.up, -angleX);
+            transform.RotateAround(_pos, Vector3.up, angleX);
             transform.RotateAround(_pos, Vector3.right, angleY);
         }
     }
