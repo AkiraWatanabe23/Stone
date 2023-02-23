@@ -49,8 +49,8 @@ public class StoneSelect
     /// </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        //これだと、移動可能範囲のマスの色も変わってしまうため
-        //各マスが自分の前の色を知っておく必要有
+        //これだと、移動可能範囲のマスの色が異なるため
+        //前の色を保存する必要有
         Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material
             = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
 
