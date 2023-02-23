@@ -10,7 +10,6 @@ public class StoneSelect
 
     private Vector3 _pos = Vector3.zero;
 
-    public Material[] Default { get => _default; set => _default = value; }
     public Vector3 Pos { get => _pos; set => _pos = value; }
     public List<GameObject[]> Board { get; set; }
 
@@ -50,6 +49,8 @@ public class StoneSelect
     /// </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
+        //これだと、移動可能範囲のマスの色も変わってしまうため
+        //各マスが自分の前の色を知っておく必要有
         Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material
             = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
 
