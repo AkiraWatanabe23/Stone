@@ -28,7 +28,7 @@ public class StoneSelect
                 Debug.Log("input up");
                 _pos = MoveStone(0, _pos);
                 break;
-            case "d":
+            case "s":
                 Debug.Log("input down");
                 _pos = MoveStone(1, _pos);
                 break;
@@ -36,7 +36,7 @@ public class StoneSelect
                 Debug.Log("input left");
                 _pos = MoveStone(2, _pos);
                 break;
-            case "s":
+            case "d":
                 Debug.Log("input right");
                 _pos = MoveStone(3, _pos);
                 break;
@@ -46,11 +46,10 @@ public class StoneSelect
     /// <summary>
     /// マスの選択（描画の切り替え）
     /// </summary>
-    /// <param name="dir"> 移動方向 </param>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material
-            = (int)(pos.z + pos.x) % 2 == 0 ? _default[0] : _default[1];
+        Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material
+            = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
 
         switch (dir)
         {
@@ -61,7 +60,7 @@ public class StoneSelect
                 else
                     pos.z++;
 
-                Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material = _selecting;
+                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //下方向
             case 1:
@@ -70,7 +69,7 @@ public class StoneSelect
                 else
                     pos.z--;
 
-                Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material = _selecting;
+                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //左方向
             case 2:
@@ -79,7 +78,7 @@ public class StoneSelect
                 else
                     pos.x--;
 
-                Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material = _selecting;
+                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //右方向
             case 3:
@@ -88,7 +87,7 @@ public class StoneSelect
                 else
                     pos.x++;
 
-                Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material = _selecting;
+                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
         }
         return pos;
