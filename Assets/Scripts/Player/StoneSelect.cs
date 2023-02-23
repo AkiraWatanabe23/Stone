@@ -5,7 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class StoneSelect
 {
+    [SerializeField] private Material[] _default = new Material[2];
     [SerializeField] private Material _selecting = default;
+
+    private Vector3 _pos = Vector3.zero;
 
     public List<GameObject[]> Board { get; set; }
 
@@ -23,19 +26,19 @@ public class StoneSelect
         {
             case "w":
                 Debug.Log("input up");
-                MoveStone(0);
+                _pos = MoveStone(0, _pos);
                 break;
             case "d":
                 Debug.Log("input down");
-                MoveStone(1);
+                _pos = MoveStone(1, _pos);
                 break;
             case "a":
                 Debug.Log("input left");
-                MoveStone(2);
+                _pos = MoveStone(2, _pos);
                 break;
             case "s":
                 Debug.Log("input right");
-                MoveStone(3);
+                _pos = MoveStone(3, _pos);
                 break;
         }
     }
@@ -44,9 +47,10 @@ public class StoneSelect
     /// マスの選択（描画の切り替え）
     /// </summary>
     /// <param name="dir"> 移動方向 </param>
-    private void MoveStone(int dir)
+    private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        Vector3 pos = Vector3.zero;
+        Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material
+            = (int)(pos.z + pos.x) % 2 == 0 ? _default[0] : _default[1];
 
         switch (dir)
         {
@@ -87,5 +91,6 @@ public class StoneSelect
                 Board[(int)pos.z][(int)pos.x].GetComponent<MeshRenderer>().material = _selecting;
                 break;
         }
+        return pos;
     }
 }

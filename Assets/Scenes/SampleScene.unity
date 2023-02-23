@@ -1216,6 +1216,9 @@ MonoBehaviour:
     _prefabOne: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
     _prefabTwo: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
   _select:
+    _default:
+    - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
+    - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
     _selecting: {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
 --- !u!114 &1248087290
 MonoBehaviour:
