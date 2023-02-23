@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private Turns _turn = default;
     [SerializeField] private LoadData _load = default;
     [SerializeField] private StoneSelect _select = default;
+    [SerializeField] private Material[] _states = new Material[2];
 
     private List<int[]> _board = new();
     private List<GameObject[]> _objs = new();
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private bool _isSwitch = false;
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
+
+    public MoveType Move { get; set; }
 
     private void Awake()
     {
@@ -27,11 +29,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _board = _load.Board;
+        _objs = _load.BoardState;
         _select.Board = _load.BoardState;
 
         //スタートをランダムにする
-        _turn = (Turns)Enum.ToObject(typeof(Turns), UnityEngine.Random.Range(0, (int)Turns.COUNT));
-        Debug.Log(_turn);
+        _turn = (Turns)Enum.ToObject(typeof(Turns),
+                 UnityEngine.Random.Range(0, (int)Turns.COUNT));
+        Debug.Log($"{_turn} からスタートです");
     }
 
     private void Update()
@@ -58,10 +62,20 @@ public class GameManager : MonoBehaviour
 
     public void PlayerMovement(int num)
     {
+        List<int[]> checking = new();
+
         switch (num)
         {
             case 1:
-                _stones.SettableStones(_board);
+                checking = _stones.SettableStones(_board);
+                for (int i = 0; i < _objs.Count; i++)
+                {
+                    for (int j = 0; j < _objs[i].Length; j++)
+                    {
+                        if (checking[i][j] == 1)
+                            _objs[i][j].GetComponent<MeshRenderer>().material = _states[0];
+                    }
+                }
                 break;
             case 2:
                 _stones.MovableStones(gameObject, _board);

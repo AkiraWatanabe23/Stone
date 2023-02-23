@@ -5,7 +5,7 @@ namespace Constants
 {
     public static class Consts
     {
-        //各プレイヤーの持ち時間（仮）
+        //各プレイヤーの持ち時間（仮：要らないかも）
         public const float GAME_TIME_ONE = 100f;
         public const float GAME_TIME_TWO = 100f;
 
@@ -29,6 +29,13 @@ namespace Constants
         WHITE,
         BLACK,
         COUNT,
+    }
+
+    public enum MoveType
+    {
+        DEFAULT,
+        SET,
+        MOVE
     }
 
     public enum JudgeResult

@@ -10,6 +10,8 @@ public class StoneSelect
 
     private Vector3 _pos = Vector3.zero;
 
+    public Material[] Default { get => _default; set => _default = value; }
+    public Vector3 Pos { get => _pos; set => _pos = value; }
     public List<GameObject[]> Board { get; set; }
 
     public void Update()
