@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
             _select.IsSwitch = false;
 
             _select.BoardFresh();
+            _turn =
+                _turn == Turns.WHITE ?
+                Turns.BLACK : Turns.WHITE;
             Debug.Log("ターンを切り替えます");
         }
     }

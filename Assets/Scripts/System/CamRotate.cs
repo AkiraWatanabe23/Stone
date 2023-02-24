@@ -7,8 +7,8 @@ public class CamRotate : MonoBehaviour
 {
     [Tooltip("カメラの回転の基準となる座標")]
     [SerializeField] private Vector3 _pos = new(0, 0, 0);
-    [Tooltip("回転速度(各回転方向ごと)")]
-    [SerializeField] private Vector2 _rotateSpeed = new(0, 0);
+    [Tooltip("回転速度")]
+    [SerializeField] private float _rotateSpeed = 1f;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class CamRotate : MonoBehaviour
         //（回転に制限をつけた方が良さそう）
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x;
+            float angleX = Input.GetAxis("Horizontal") * _rotateSpeed;
 
             transform.RotateAround(_pos, Vector3.up, angleX);
         }
@@ -24,7 +24,7 @@ public class CamRotate : MonoBehaviour
 
     public void RotX(float value)
     {
-        //この部分に制限をつける必要有
+        //TODO：この部分に制限をつける必要有
         transform.RotateAround(_pos, Vector3.right, value);
     }
 }
