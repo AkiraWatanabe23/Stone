@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _board = _load.Board;
+        _select.Board = _load.Board;
         _objs = _load.BoardState;
-        _select.Board = _load.BoardState;
+        _select.BoardState = _load.BoardState;
 
         //スタートをランダムにする
         _turn = (Turns)Enum.ToObject(typeof(Turns),
@@ -67,7 +68,9 @@ public class GameManager : MonoBehaviour
         switch (num)
         {
             case 1:
+                //配置可能なマスの判定
                 checking = _stones.SettableStones(_board);
+                _select.Board = checking;
                 for (int i = 0; i < _objs.Count; i++)
                 {
                     for (int j = 0; j < _objs[i].Length; j++)
@@ -78,6 +81,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 2:
+                //移動可能なマスの判定
                 _stones.MovableStones(gameObject, _board);
                 break;
             case 3:

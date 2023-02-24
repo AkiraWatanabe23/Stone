@@ -5,13 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class StoneSelect
 {
-    [SerializeField] private Material[] _default = new Material[2];
+    [SerializeField] private Material[] _default = new Material[3];
     [SerializeField] private Material _selecting = default;
 
     private Vector3 _pos = Vector3.zero;
 
     public Vector3 Pos { get => _pos; set => _pos = value; }
-    public List<GameObject[]> Board { get; set; }
+    public List<int[]> Board { get; set; }
+    public List<GameObject[]> BoardState { get; set; }
 
     public void Update()
     {
@@ -49,10 +50,29 @@ public class StoneSelect
     /// </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        //これだと、移動可能範囲のマスの色が異なるため
-        //前の色を保存する必要有
-        Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material
-            = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
+        var mat = BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material;
+
+        for (int i = 0; i < Board.Count; i++)
+        {
+            for (int j = 0; j < Board[i].Length; j++)
+            {
+                Debug.Log($"{Board[i][j]}, {i}, {j}");
+            }
+        }
+
+        if (mat.name.Contains("Orange"))
+        {
+            if (Board[(int)pos.x][(int)pos.z] == 1)
+            {
+                mat = _default[2];
+            }
+            else
+            {
+                mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
+                //Debug.Log("aaa");
+            }
+        }
+        BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = mat;
 
         switch (dir)
         {
@@ -63,7 +83,7 @@ public class StoneSelect
                 else
                     pos.z++;
 
-                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //下方向
             case 1:
@@ -72,7 +92,7 @@ public class StoneSelect
                 else
                     pos.z--;
 
-                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //左方向
             case 2:
@@ -81,7 +101,7 @@ public class StoneSelect
                 else
                     pos.x--;
 
-                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //右方向
             case 3:
@@ -90,7 +110,7 @@ public class StoneSelect
                 else
                     pos.x++;
 
-                Board[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
                 break;
         }
         return pos;
