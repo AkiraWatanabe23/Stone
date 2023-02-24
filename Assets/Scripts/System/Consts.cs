@@ -28,7 +28,6 @@ namespace Constants
     {
         WHITE,
         BLACK,
-        COUNT,
     }
 
     public enum MoveType

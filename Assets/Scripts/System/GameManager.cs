@@ -1,5 +1,4 @@
 ﻿using Constants;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,8 +12,6 @@ public class GameManager : MonoBehaviour
 
     private List<int[]> _board = new();
     private List<GameObject[]> _objs = new();
-    /// <summary> ターンの切り替え </summary>
-    private bool _isSwitch = false;
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
 
@@ -33,10 +30,7 @@ public class GameManager : MonoBehaviour
         _objs = _load.BoardState;
         _select.BoardState = _load.BoardState;
 
-        //スタートをランダムにする
-        _turn = (Turns)Enum.ToObject(typeof(Turns),
-                 UnityEngine.Random.Range(0, (int)Turns.COUNT));
-        Debug.Log($"{_turn} からスタートです");
+        _turn = Turns.WHITE;
     }
 
     private void Update()
@@ -44,7 +38,7 @@ public class GameManager : MonoBehaviour
         _select.Update();
 
         //判定
-        if (_isSwitch)
+        if (_select.IsSwitch)
         {
             //盤面が更新されたら、それを反映する
             if (!_board.All(n => _load.Board.Any(i => i == n)) &&
@@ -57,7 +51,10 @@ public class GameManager : MonoBehaviour
             _judge.Row(_board);
             _judge.Column(_board);
             _judge.Diagonal(_board);
-            _isSwitch = false;
+            _select.IsSwitch = false;
+
+            _select.BoardFresh();
+            Debug.Log("ターンを切り替えます");
         }
     }
 
@@ -85,7 +82,7 @@ public class GameManager : MonoBehaviour
                 _stones.MovableStones(gameObject, _board);
                 break;
             case 3:
-                _isSwitch = true;
+                _select.IsSwitch = true;
                 break;
         }
     }

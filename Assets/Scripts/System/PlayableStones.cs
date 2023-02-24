@@ -27,6 +27,7 @@ public class PlayableStones
         {
             for (int j = 0; j < current[i].Length; j++)
             {
+                //そのマスが空なら
                 if (current[i][j] == 0)
                 {
                     _checking[i][j] = 1;

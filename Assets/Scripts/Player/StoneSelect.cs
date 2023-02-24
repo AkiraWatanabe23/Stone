@@ -1,45 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public class StoneSelect
 {
+    [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private Material[] _default = new Material[3];
     [SerializeField] private Material _selecting = default;
 
     private Vector3 _pos = Vector3.zero;
+    private bool _isSelect = false;
 
-    public Vector3 Pos { get => _pos; set => _pos = value; }
     public List<int[]> Board { get; set; }
     public List<GameObject[]> BoardState { get; set; }
+    /// <summary> ターンの切り替え </summary>
+    public bool IsSwitch { get; set; }
 
     public void Update()
     {
         if (Input.anyKeyDown)
         {
-            Select(Input.inputString);
+            if (Input.GetKeyDown(KeyCode.Return) && _isSelect)
+            {
+                if (Board[(int)_pos.x][(int)_pos.z] == 1)
+                {
+                    Object.Instantiate(
+                        _players[0], new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
+                    Debug.Log("マスを選択しました");
+                    IsSwitch = true;
+                }
+                else
+                {
+                    Debug.Log("ここには置けないです");
+                    Debug.Log($"{Board[(int)_pos.x][(int)_pos.z]}, {new Vector3((int)_pos.x, 1f, (int)_pos.z)}");
+                }
+                _isSelect = false;
+            }
+            else
+            {
+                Select(Input.inputString);
+                _isSelect = true;
+            }
         }
     }
 
+    /// <summary>
+    /// Playerの入力
+    /// </summary>
+    /// <param name="input"> 入力されたキー </param>
     private void Select(string input)
     {
         switch (input)
         {
             case "w":
-                Debug.Log("input up");
                 _pos = MoveStone(0, _pos);
                 break;
             case "s":
-                Debug.Log("input down");
                 _pos = MoveStone(1, _pos);
                 break;
             case "a":
-                Debug.Log("input left");
                 _pos = MoveStone(2, _pos);
                 break;
             case "d":
-                Debug.Log("input right");
                 _pos = MoveStone(3, _pos);
                 break;
         }
@@ -52,14 +76,7 @@ public class StoneSelect
     {
         var mat = BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material;
 
-        for (int i = 0; i < Board.Count; i++)
-        {
-            for (int j = 0; j < Board[i].Length; j++)
-            {
-                Debug.Log($"{Board[i][j]}, {i}, {j}");
-            }
-        }
-
+        //Materialの描画
         if (mat.name.Contains("Orange"))
         {
             if (Board[(int)pos.x][(int)pos.z] == 1)
@@ -69,7 +86,6 @@ public class StoneSelect
             else
             {
                 mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
-                //Debug.Log("aaa");
             }
         }
         BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = mat;
@@ -114,5 +130,17 @@ public class StoneSelect
                 break;
         }
         return pos;
+    }
+
+    public void BoardFresh()
+    {
+        for (int i = 0; i < BoardState.Count; i++)
+        {
+            for (int j = 0; j < BoardState[i].Length; j++)
+            {
+                BoardState[i][j].GetComponent<MeshRenderer>().material
+                    = (i + j) % 2 == 0 ? _default[0] : _default[1];
+            }
+        }
     }
 }
