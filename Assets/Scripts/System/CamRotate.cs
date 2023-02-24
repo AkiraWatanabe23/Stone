@@ -24,6 +24,7 @@ public class CamRotate : MonoBehaviour
 
     public void RotX(float value)
     {
+        //この部分に制限をつける必要有
         transform.RotateAround(_pos, Vector3.right, value);
     }
 }
