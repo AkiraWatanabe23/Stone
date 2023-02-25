@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Constants
@@ -9,6 +10,8 @@ namespace Constants
         //各プレイヤーの持ち時間（仮：要らないかも）
         public const float GAME_TIME_ONE = 100f;
         public const float GAME_TIME_TWO = 100f;
+
+        public const string STONE_TAG = "Stone";
 
         public static readonly Dictionary<SceneNames, string> Scenes = new()
         {
@@ -22,16 +25,24 @@ namespace Constants
         /// <returns> 得られたオブジェクト </returns>
         public static GameObject FindWithVector(Vector3 pos)
         {
-            //このままだと、同じ位置に複数のオブジェクトがあった場合に
-            //欲しいオブジェクトが取得できない可能性があるため、修正必要
             GameObject find = default;
+            List<GameObject> objs = new();
 
             foreach (GameObject obj
                      in Object.FindObjectsOfType(typeof(GameObject)).Cast<GameObject>())
             {
                 if (pos == obj.transform.position)
                 {
-                    find = obj;
+                    objs.Add(obj);
+                }
+            }
+
+            foreach (var stone in objs)
+            {
+                if (stone.CompareTag(STONE_TAG))
+                {
+                    find = stone;
+                    break;
                 }
             }
             return find;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6309884197858790466}
   m_Layer: 0
   m_Name: BlackStone
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
