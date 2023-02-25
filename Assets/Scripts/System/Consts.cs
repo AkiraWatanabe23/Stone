@@ -24,7 +24,7 @@ namespace Constants
         {
             //このままだと、同じ位置に複数のオブジェクトがあった場合に
             //欲しいオブジェクトが取得できない可能性があるため、修正必要
-            GameObject find = new();
+            GameObject find = default;
 
             foreach (GameObject obj
                      in Object.FindObjectsOfType(typeof(GameObject)).Cast<GameObject>())

@@ -11,19 +11,13 @@ public class LoadData
 {
     private TextAsset _file = default;
     private List<int[]> _board = new();
-    private List<GameObject[]> _boardState = new();
     private readonly GameObject[] _stone = new GameObject[2];
 
     public List<int[]> Board { get => _board; set => _board = value; }
-    public List<GameObject[]> BoardState { get => _boardState; set => _boardState = value; }
     public GameObject[] Stone => _stone;
 
     public void Awake()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            _boardState.Add(new GameObject[] { null, null, null, null, null });
-        }
         LoadCsv();
         BoardSet();
     }
@@ -59,14 +53,12 @@ public class LoadData
                 {
                     if ((i + j) % 2 == 0)
                     {
-                        _boardState[i][j] =
-                            UnityEngine.Object.Instantiate(
+                        UnityEngine.Object.Instantiate(
                             _stone[0], new Vector3(i, 0, j), Quaternion.identity);
                     }
                     else
                     {
-                        _boardState[i][j] =
-                            UnityEngine.Object.Instantiate(
+                        UnityEngine.Object.Instantiate(
                             _stone[1], new Vector3(i, 0, j), Quaternion.identity);
                     }
                 }

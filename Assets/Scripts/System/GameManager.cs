@@ -1,6 +1,5 @@
 ﻿using Constants;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     /// <summary> 盤面を数値で表現したもの（この値を更新して盤面に反映する） </summary>
     private List<int[]> _board = new();
-    private List<GameObject[]> _objs = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
 
@@ -30,9 +28,6 @@ public class GameManager : MonoBehaviour
         load.Awake();
         _board = load.Board;
         _select.Board = load.Board;
-
-        _objs = load.BoardState;
-        _select.BoardState = load.BoardState;
     }
 
     private void Start()
@@ -83,12 +78,15 @@ public class GameManager : MonoBehaviour
             case 1:
                 //配置可能なマスの判定
                 _select.Board = _stones.SettableStones(_board);
-                for (int i = 0; i < _objs.Count; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    for (int j = 0; j < _objs[i].Length; j++)
+                    for (int j = 0; j < 5; j++)
                     {
                         if (_select.Board[i][j] == 0)
-                            _objs[i][j].GetComponent<MeshRenderer>().material = _states[0];
+                        {
+                            Consts.FindWithVector(new Vector3(i, 0, j)).
+                                GetComponent<MeshRenderer>().material = _states[0];
+                        }
                     }
                 }
                 break;

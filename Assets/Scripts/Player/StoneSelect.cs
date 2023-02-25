@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Constants;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ public class StoneSelect
     /// <summary> マスの選択（描画の切り替え） </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        var mat = BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material;
+        var mat = Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material;
 
         //Materialの描画
         if (mat.name.Contains("Orange"))
@@ -89,7 +90,7 @@ public class StoneSelect
                 mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
             }
         }
-        BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = mat;
+        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = mat;
 
         switch (dir)
         {
@@ -100,8 +101,6 @@ public class StoneSelect
                 else
                     pos.z++;
 
-                BoardState[(int)pos.x][(int)pos.z].
-                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //下方向
             case 1:
@@ -110,8 +109,6 @@ public class StoneSelect
                 else
                     pos.z--;
 
-                BoardState[(int)pos.x][(int)pos.z].
-                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //左方向
             case 2:
@@ -120,8 +117,6 @@ public class StoneSelect
                 else
                     pos.x--;
 
-                BoardState[(int)pos.x][(int)pos.z].
-                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //右方向
             case 3:
@@ -130,21 +125,21 @@ public class StoneSelect
                 else
                     pos.x++;
 
-                BoardState[(int)pos.x][(int)pos.z].
-                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
         }
+        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = _selecting;
         return pos;
     }
 
     /// <summary> ボードのリセット </summary>
     public void BoardFresh()
     {
-        for (int i = 0; i < BoardState.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < BoardState[i].Length; j++)
+            for (int j = 0; j < 5; j++)
             {
-                BoardState[i][j].GetComponent<MeshRenderer>().material
+                Consts.FindWithVector(new Vector3(i, 0, j)).
+                    GetComponent<MeshRenderer>().material
                     = (i + j) % 2 == 0 ? _default[0] : _default[1];
             }
         }
