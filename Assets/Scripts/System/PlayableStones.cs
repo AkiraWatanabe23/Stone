@@ -13,10 +13,10 @@ public class PlayableStones
     /// </summary>
     public List<int[]> SettableStones(List<int[]> current)
     {
-        List<int[]> checking = new List<int[]>();
+        List<int[]> checking = new();
         for (int i = 0; i < 5; i++)
         {
-            checking.Add(new int[] { 0, 0, 0, 0, 0 });
+            checking.Add(new int[] { 1, 1, 1, 1, 1 });
         }
 
         for (int i = 0; i < current.Count; i++)
@@ -26,13 +26,13 @@ public class PlayableStones
                 //そのマスが空なら
                 if (current[i][j] == 0)
                 {
-                    checking[i][j] = 1;
+                    checking[i][j] = 0;
                 }
             }
         }
         return checking;
-        //配置可...1
-        //不可　...0
+        //配置可（空）     ...0
+        //不可 （空でない）...1
     }
 
     /// <summary>

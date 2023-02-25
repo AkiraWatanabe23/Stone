@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Constants
@@ -15,6 +16,26 @@ namespace Constants
             [SceneNames.GAME_SCENE] = "MainGame",
             [SceneNames.RESULT_SCENE] = "Result",
         };
+
+        /// <summary> 座標からオブジェクトを検索する </summary>
+        /// <param name="pos"> 指定した座標 </param>
+        /// <returns> 得られたオブジェクト </returns>
+        public static GameObject FindWithVector(Vector3 pos)
+        {
+            //このままだと、同じ位置に複数のオブジェクトがあった場合に
+            //欲しいオブジェクトが取得できない可能性があるため、修正必要
+            GameObject find = new();
+
+            foreach (GameObject obj
+                     in Object.FindObjectsOfType(typeof(GameObject)).Cast<GameObject>())
+            {
+                if (pos == obj.transform.position)
+                {
+                    find = obj;
+                }
+            }
+            return find;
+        }
     }
 
     public enum SceneNames

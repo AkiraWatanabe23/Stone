@@ -264,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135804542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 10, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1272,7 +1272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248087286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 10, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1292,21 +1292,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turn: 0
-  _load:
-    _prefabOne: {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
-    _prefabTwo: {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
-  _select:
-    _default:
-    - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
-    - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
-    - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
-    _selecting: {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
   _states:
   - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
   - {fileID: 2100000, guid: 6f120d8eb109a4d4b9ad8701393c5086, type: 2}
   _players:
   - {fileID: 2417456842968965468, guid: c4e41d78d1418a64cbed528f11715669, type: 3}
   - {fileID: 3968282573149140767, guid: 8688efdaac2d42c47a4e53dcd725e78e, type: 3}
+  _boardStone:
+  - {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
+  - {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
+  _select:
+    _default:
+    - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
+    - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
+    - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
+    _selecting: {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
 --- !u!114 &1248087290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,6 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turn: {fileID: 2129279620}
+  _moveSelect: {fileID: 1561204801}
 --- !u!1 &1412373820
 GameObject:
   m_ObjectHideFlags: 0

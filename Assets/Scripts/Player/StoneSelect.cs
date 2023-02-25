@@ -29,7 +29,7 @@ public class StoneSelect
     {
         if (Input.GetKeyDown(KeyCode.Return) && _isSelect)
         {
-            if (Board[(int)_pos.x][(int)_pos.z] == 1)
+            if (Board[(int)_pos.x][(int)_pos.z] == 0)
             {
                 Object.Instantiate(
                     player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
@@ -41,7 +41,6 @@ public class StoneSelect
             else
             {
                 Debug.Log("ここには置けないです");
-                Debug.Log($"{Board[(int)_pos.x][(int)_pos.z]}, {new Vector3((int)_pos.x, 1f, (int)_pos.z)}");
             }
             _isSelect = false;
         }
@@ -81,7 +80,7 @@ public class StoneSelect
         //Materialの描画
         if (mat.name.Contains("Orange"))
         {
-            if (Board[(int)pos.x][(int)pos.z] == 1)
+            if (Board[(int)pos.x][(int)pos.z] == 0)
             {
                 mat = _default[2];
             }
@@ -101,7 +100,8 @@ public class StoneSelect
                 else
                     pos.z++;
 
-                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].
+                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //下方向
             case 1:
@@ -110,7 +110,8 @@ public class StoneSelect
                 else
                     pos.z--;
 
-                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].
+                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //左方向
             case 2:
@@ -119,7 +120,8 @@ public class StoneSelect
                 else
                     pos.x--;
 
-                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].
+                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
             //右方向
             case 3:
@@ -128,7 +130,8 @@ public class StoneSelect
                 else
                     pos.x++;
 
-                BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material = _selecting;
+                BoardState[(int)pos.x][(int)pos.z].
+                    GetComponent<MeshRenderer>().material = _selecting;
                 break;
         }
         return pos;

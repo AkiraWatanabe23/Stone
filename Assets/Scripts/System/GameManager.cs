@@ -6,32 +6,37 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Turns _turn = default;
-    [SerializeField] private LoadData _load = default;
-    [SerializeField] private StoneSelect _select = default;
     [SerializeField] private Material[] _states = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
+    [SerializeField] private GameObject[] _boardStone = new GameObject[2];
+    [SerializeField] private StoneSelect _select = default;
 
+    /// <summary> 盤面を数値で表現したもの（この値を更新して盤面に反映する） </summary>
     private List<int[]> _board = new();
     private List<GameObject[]> _objs = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
 
     public Turns Turn { get => _turn; set => _turn = value; }
+    public List<int[]> Board { get => _board; set => _board = value; }
     public MoveType Move { get; set; }
 
     private void Awake()
     {
-        _load.Awake();
+        LoadData load = new();
+        load.Stone[0] = _boardStone[0];
+        load.Stone[1] = _boardStone[1];
+
+        load.Awake();
+        _board = load.Board;
+        _select.Board = load.Board;
+
+        _objs = load.BoardState;
+        _select.BoardState = load.BoardState;
     }
 
     private void Start()
     {
-        _board = _load.Board;
-        _select.Board = _load.Board;
-
-        _objs = _load.BoardState;
-        _select.BoardState = _load.BoardState;
-
         _select.Player = _players[0];
         _turn = Turns.WHITE;
     }
@@ -43,14 +48,6 @@ public class GameManager : MonoBehaviour
         //判定
         if (_select.IsSwitch)
         {
-            //盤面が更新されたら、それを反映する
-            if (!_board.All(n => _load.Board.Any(i => i == n)) &&
-                !_load.Board.All(n => _board.Any(i => i == n)))
-            {
-                _board = _load.Board;
-                Debug.Log("盤面に変更がありました。");
-            }
-
             _judge.Row(_board);
             _judge.Column(_board);
             _judge.Diagonal(_board);
@@ -90,13 +87,13 @@ public class GameManager : MonoBehaviour
                 {
                     for (int j = 0; j < _objs[i].Length; j++)
                     {
-                        if (_select.Board[i][j] == 1)
+                        if (_select.Board[i][j] == 0)
                             _objs[i][j].GetComponent<MeshRenderer>().material = _states[0];
                     }
                 }
                 break;
             case 2:
-                //移動可能なマスの判定
+                //移動可能なマスの判定（引数は後で修正する）
                 _stones.MovableStones(gameObject, _board);
                 break;
             case 3:

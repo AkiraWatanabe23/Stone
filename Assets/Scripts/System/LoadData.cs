@@ -9,15 +9,14 @@ using System.IO;
 /// </summary>
 public class LoadData
 {
-    [SerializeField] private GameObject _prefabOne = default;
-    [SerializeField] private GameObject _prefabTwo = default;
-
     private TextAsset _file = default;
     private List<int[]> _board = new();
     private List<GameObject[]> _boardState = new();
+    private readonly GameObject[] _stone = new GameObject[2];
 
     public List<int[]> Board { get => _board; set => _board = value; }
     public List<GameObject[]> BoardState { get => _boardState; set => _boardState = value; }
+    public GameObject[] Stone => _stone;
 
     public void Awake()
     {
@@ -62,13 +61,13 @@ public class LoadData
                     {
                         _boardState[i][j] =
                             UnityEngine.Object.Instantiate(
-                            _prefabOne, new Vector3(i, 0, j), Quaternion.identity);
+                            _stone[0], new Vector3(i, 0, j), Quaternion.identity);
                     }
                     else
                     {
                         _boardState[i][j] =
                             UnityEngine.Object.Instantiate(
-                            _prefabTwo, new Vector3(i, 0, j), Quaternion.identity);
+                            _stone[1], new Vector3(i, 0, j), Quaternion.identity);
                     }
                 }
             }
