@@ -33,6 +33,7 @@ public class StoneSelect
             {
                 Object.Instantiate(
                     player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
+                //TODO：ここで、オブジェクト設定をボードに反映させる必要有
 
                 Debug.Log("マスを選択しました");
                 IsSwitch = true;
