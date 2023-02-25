@@ -5,13 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class StoneSelect
 {
-    [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private Material[] _default = new Material[3];
     [SerializeField] private Material _selecting = default;
 
     private Vector3 _pos = Vector3.zero;
     private bool _isSelect = false;
 
+    public GameObject Player { get; set; }
     public List<int[]> Board { get; set; }
     public List<GameObject[]> BoardState { get; set; }
     /// <summary> ターンの切り替え </summary>
@@ -21,33 +21,37 @@ public class StoneSelect
     {
         if (Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(KeyCode.Return) && _isSelect)
-            {
-                if (Board[(int)_pos.x][(int)_pos.z] == 1)
-                {
-                    Object.Instantiate(
-                        _players[0], new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
-                    Debug.Log("マスを選択しました");
-                    IsSwitch = true;
-                }
-                else
-                {
-                    Debug.Log("ここには置けないです");
-                    Debug.Log($"{Board[(int)_pos.x][(int)_pos.z]}, {new Vector3((int)_pos.x, 1f, (int)_pos.z)}");
-                }
-                _isSelect = false;
-            }
-            else
-            {
-                Select(Input.inputString);
-                _isSelect = true;
-            }
+            SetObj(Player);
         }
     }
 
-    /// <summary>
-    /// Playerの入力
-    /// </summary>
+    private void SetObj(GameObject player)
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && _isSelect)
+        {
+            if (Board[(int)_pos.x][(int)_pos.z] == 1)
+            {
+                Object.Instantiate(
+                    player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
+
+                Debug.Log("マスを選択しました");
+                IsSwitch = true;
+            }
+            else
+            {
+                Debug.Log("ここには置けないです");
+                Debug.Log($"{Board[(int)_pos.x][(int)_pos.z]}, {new Vector3((int)_pos.x, 1f, (int)_pos.z)}");
+            }
+            _isSelect = false;
+        }
+        else
+        {
+            Select(Input.inputString);
+            _isSelect = true;
+        }
+    }
+
+    /// <summary> Playerの入力 </summary>
     /// <param name="input"> 入力されたキー </param>
     private void Select(string input)
     {
@@ -68,9 +72,7 @@ public class StoneSelect
         }
     }
 
-    /// <summary>
-    /// マスの選択（描画の切り替え）
-    /// </summary>
+    /// <summary> マスの選択（描画の切り替え） </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
         var mat = BoardState[(int)pos.x][(int)pos.z].GetComponent<MeshRenderer>().material;
@@ -131,6 +133,7 @@ public class StoneSelect
         return pos;
     }
 
+    /// <summary> ボードのリセット </summary>
     public void BoardFresh()
     {
         for (int i = 0; i < BoardState.Count; i++)

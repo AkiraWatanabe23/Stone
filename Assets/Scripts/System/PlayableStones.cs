@@ -8,21 +8,17 @@ using UnityEngine;
 [System.Serializable]
 public class PlayableStones
 {
-    private List<int[]> _checking = new();
-
-    public void Awake()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            _checking.Add(new int[] { 0, 0, 0, 0, 0 });
-        }
-    }
-
     /// <summary>
     /// 配置可能なマスの判定
     /// </summary>
     public List<int[]> SettableStones(List<int[]> current)
     {
+        List<int[]> checking = new List<int[]>();
+        for (int i = 0; i < 5; i++)
+        {
+            checking.Add(new int[] { 0, 0, 0, 0, 0 });
+        }
+
         for (int i = 0; i < current.Count; i++)
         {
             for (int j = 0; j < current[i].Length; j++)
@@ -30,11 +26,11 @@ public class PlayableStones
                 //そのマスが空なら
                 if (current[i][j] == 0)
                 {
-                    _checking[i][j] = 1;
+                    checking[i][j] = 1;
                 }
             }
         }
-        return _checking;
+        return checking;
         //配置可...1
         //不可　...0
     }

@@ -9,27 +9,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LoadData _load = default;
     [SerializeField] private StoneSelect _select = default;
     [SerializeField] private Material[] _states = new Material[2];
+    [SerializeField] private GameObject[] _players = new GameObject[2];
 
     private List<int[]> _board = new();
     private List<GameObject[]> _objs = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
 
+    public Turns Turn { get => _turn; set => _turn = value; }
     public MoveType Move { get; set; }
 
     private void Awake()
     {
         _load.Awake();
-        _stones.Awake();
     }
 
     private void Start()
     {
         _board = _load.Board;
         _select.Board = _load.Board;
+
         _objs = _load.BoardState;
         _select.BoardState = _load.BoardState;
 
+        _select.Player = _players[0];
         _turn = Turns.WHITE;
     }
 
@@ -54,28 +57,40 @@ public class GameManager : MonoBehaviour
             _select.IsSwitch = false;
 
             _select.BoardFresh();
-            _turn =
-                _turn == Turns.WHITE ?
-                Turns.BLACK : Turns.WHITE;
-            Debug.Log("ターンを切り替えます");
+            SwitchTurn();
         }
     }
 
+    /// <summary>
+    /// ターン切り替え時に呼び出す
+    /// </summary>
+    private void SwitchTurn()
+    {
+        _select.Player = 
+            _turn == Turns.WHITE ?
+            _players[1] : _players[0];
+
+        _turn =
+            _turn == Turns.WHITE ?
+            Turns.BLACK : Turns.WHITE;
+        Debug.Log("ターンを切り替えます");
+    }
+
+    /// <summary>
+    /// 行動選択(UIで呼び出す)
+    /// </summary>
     public void PlayerMovement(int num)
     {
-        List<int[]> checking = new();
-
         switch (num)
         {
             case 1:
                 //配置可能なマスの判定
-                checking = _stones.SettableStones(_board);
-                _select.Board = checking;
+                _select.Board = _stones.SettableStones(_board);
                 for (int i = 0; i < _objs.Count; i++)
                 {
                     for (int j = 0; j < _objs[i].Length; j++)
                     {
-                        if (checking[i][j] == 1)
+                        if (_select.Board[i][j] == 1)
                             _objs[i][j].GetComponent<MeshRenderer>().material = _states[0];
                     }
                 }
@@ -85,6 +100,7 @@ public class GameManager : MonoBehaviour
                 _stones.MovableStones(gameObject, _board);
                 break;
             case 3:
+                //パス（何もせずにターンを切り替える）
                 _select.IsSwitch = true;
                 break;
         }
