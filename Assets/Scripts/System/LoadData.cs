@@ -13,7 +13,7 @@ public class LoadData
     private List<int[]> _board = new();
     private readonly GameObject[] _stone = new GameObject[2];
 
-    public List<int[]> Board { get => _board; set => _board = value; }
+    public List<int[]> Board { get => _board; protected set => _board = value; }
     public GameObject[] Stone => _stone;
 
     public void Init()

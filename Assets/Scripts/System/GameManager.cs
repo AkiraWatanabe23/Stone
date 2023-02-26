@@ -1,6 +1,7 @@
 ﻿using Constants;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,14 +10,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
     [SerializeField] private StoneSelect _select = default;
+    [SerializeField] private Image _image = default;
 
     /// <summary> 盤面を数値で表現したもの（この値を更新して盤面に反映する） </summary>
     private List<int[]> _board = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
 
-    public Turns Turn { get => _turn; set => _turn = value; }
-    public List<int[]> Board { get => _board; set => _board = value; }
+    public Turns Turn { get => _turn; protected set => _turn = value; }
     public MoveType Move { get; set; }
 
     private void Awake()
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SwitchTurn()
     {
+        _board = _select.Board;
+
         _select.Player = 
             _turn == Turns.WHITE ?
             _players[1] : _players[0];
@@ -65,6 +68,8 @@ public class GameManager : MonoBehaviour
         _turn =
             _turn == Turns.WHITE ?
             Turns.BLACK : Turns.WHITE;
+
+        _image.gameObject.SetActive(true);
         Debug.Log("ターンを切り替えます");
     }
 
