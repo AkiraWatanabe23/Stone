@@ -128,6 +128,8 @@ public class GameManager : MonoBehaviour
             {
                 if (_select.Board[i][j] == 0)
                 {
+                    //駒が複数になるとエラー発生する...何故?
+                    //相手の駒がカウントされてるかも?
                     Consts.FindWithVector(new Vector3(i, num, j), tag).
                         GetComponent<MeshRenderer>().material = _states[0];
                 }

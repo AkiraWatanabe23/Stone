@@ -12,7 +12,6 @@ public class StoneSelect
     public Turns Turn { get; set; }
     public GameObject Player { get; set; }
     public Material Selecting { get; set; }
-    /// <summary> 判定用のList </summary>
     public List<int[]> Board { get; set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
