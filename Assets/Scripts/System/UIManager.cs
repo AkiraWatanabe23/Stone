@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     private GameManager _manager = default;
 
+    public Image MoveSelect { get => _moveSelect; protected set => _moveSelect = value; }
+
     void Start()
     {
         _manager = GetComponent<GameManager>();

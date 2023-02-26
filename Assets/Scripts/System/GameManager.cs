@@ -1,7 +1,6 @@
 ﻿using Constants;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,18 +10,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
     [SerializeField] private StoneSelect _select = default;
-    [SerializeField] private Image _image = default;
 
     /// <summary> 盤面を数値で表現したもの（この値を更新して盤面に反映する） </summary>
     private List<int[]> _board = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
+    private UIManager _uiManager = default;
 
     public Turns Turn { get => _turn; protected set => _turn = value; }
     public MoveType Move { get; set; }
 
     private void Awake()
     {
+        _uiManager = GetComponent<UIManager>();
+
         LoadData load = new();
         load.Stone[0] = _boardStone[0];
         load.Stone[1] = _boardStone[1];
@@ -30,12 +31,14 @@ public class GameManager : MonoBehaviour
         load.Init();
         _board = load.Board;
         _select.Board = load.Board;
+        _select.Selecting = _selecting[0];
     }
 
     private void Start()
     {
-        _select.Player = _players[0];
         _turn = Turns.WHITE;
+        _select.Turn = _turn;
+        _select.Player = _players[0];
     }
 
     private void Update()
@@ -63,20 +66,20 @@ public class GameManager : MonoBehaviour
         //盤面を更新
         _board = _select.Board;
 
-        _select.Selecting =
-            _turn == Turns.WHITE ?
-            _selecting[1] : _selecting[0];
-
-
-        _select.Player = 
-            _turn == Turns.WHITE ?
-            _players[1] : _players[0];
-
-        _turn =
-            _turn == Turns.WHITE ?
-            Turns.BLACK : Turns.WHITE;
-
-        _image.gameObject.SetActive(true);
+        if (_turn == Turns.WHITE)
+        {
+            _select.Selecting = _selecting[1];
+            _select.Player = _players[1];
+            _turn = Turns.BLACK;
+        }
+        else
+        {
+            _select.Selecting = _selecting[0];
+            _select.Player = _players[0];
+            _turn = Turns.WHITE;
+        }
+        _select.Turn = _turn;
+        _uiManager.MoveSelect.gameObject.SetActive(true);
         Debug.Log("ターンを切り替えます");
     }
 
@@ -88,31 +91,49 @@ public class GameManager : MonoBehaviour
         switch (num)
         {
             case 1:
-                //配置可能なマスの判定
-                _select.Board = _stones.SettableStones(_board);
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        if (_select.Board[i][j] == 0)
-                        {
-                            Consts.FindWithVector(new Vector3(i, 0, j)).
-                                GetComponent<MeshRenderer>().material = _states[0];
-                        }
-                    }
-                }
-                Movable();
+                Movement(0);
                 break;
             case 2:
-                //移動可能なマスの判定（引数は後で修正する）
-                _stones.MovableStones(gameObject, _board);
-                Movable();
+                Movement(1);
                 break;
             case 3:
                 //パス（何もせずにターンを切り替える）
                 _select.IsSwitch = true;
                 break;
         }
+    }
+
+    private void Movement(int num)
+    {
+        string tag = "";
+        if (num == 0)
+        {
+            //配置可能なマスの判定
+            _select.Board = _stones.SettableStones(_board);
+            tag = Consts.STONE_TAG;
+        }
+        else if (num == 1)
+        {
+            //移動可能な駒の探索
+            //1,動かす駒を選ぶ
+            _select.Board = _stones.MovableStones(_board, _turn);
+            tag = _turn == Turns.WHITE ?
+                  Consts.PLAYER_ONE_TAG : Consts.PLAYER_TWO_TAG;
+            //2,移動するマスを選ぶ
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (_select.Board[i][j] == 0)
+                {
+                    Consts.FindWithVector(new Vector3(i, num, j), tag).
+                        GetComponent<MeshRenderer>().material = _states[0];
+                }
+            }
+        }
+        Movable();
     }
 
     private bool Movable()

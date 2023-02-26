@@ -1267,8 +1267,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1248087287}
   - component: {fileID: 1248087289}
-  - component: {fileID: 1248087290}
   - component: {fileID: 1248087291}
+  - component: {fileID: 1248087290}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1321,7 +1321,6 @@ MonoBehaviour:
     - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
     - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
     - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
-  _image: {fileID: 1561204801}
 --- !u!114 &1248087290
 MonoBehaviour:
   m_ObjectHideFlags: 0

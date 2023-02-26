@@ -9,8 +9,10 @@ public class StoneSelect
 
     private Vector3 _pos = Vector3.zero;
 
+    public Turns Turn { get; set; }
     public GameObject Player { get; set; }
     public Material Selecting { get; set; }
+    /// <summary> 判定用のList </summary>
     public List<int[]> Board { get; set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
@@ -32,7 +34,8 @@ public class StoneSelect
             {
                 Object.Instantiate(
                     player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
-                Board[(int)_pos.x][(int)_pos.z] = 1;
+                Board[(int)_pos.x][(int)_pos.z] =
+                    Turn == Turns.WHITE ? 1 : -1;
 
                 Debug.Log("マスを選択しました");
                 IsSwitch = true;
@@ -75,10 +78,11 @@ public class StoneSelect
     /// <summary> マスの選択（描画の切り替え） </summary>
     private Vector3 MoveStone(int dir, Vector3 pos)
     {
-        var mat = Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material;
+        string tag = Consts.STONE_TAG;
+        var mat = Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material;
 
         //Materialの描画
-        if (mat.name.Contains("Orange"))
+        if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
             if (Board[(int)pos.x][(int)pos.z] == 0)
             {
@@ -89,7 +93,7 @@ public class StoneSelect
                 mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
             }
         }
-        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = mat;
+        Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material = mat;
 
         switch (dir)
         {
@@ -126,7 +130,7 @@ public class StoneSelect
 
                 break;
         }
-        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = Selecting;
+        Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material = Selecting;
         return pos;
     }
 
@@ -137,7 +141,7 @@ public class StoneSelect
         {
             for (int j = 0; j < 5; j++)
             {
-                Consts.FindWithVector(new Vector3(i, 0, j)).
+                Consts.FindWithVector(new Vector3(i, 0, j), Consts.STONE_TAG).
                     GetComponent<MeshRenderer>().material
                     = (i + j) % 2 == 0 ? _default[0] : _default[1];
             }

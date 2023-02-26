@@ -11,6 +11,8 @@ namespace Constants
         public const float GAME_TIME_TWO = 100f;
 
         public const string STONE_TAG = "Stone";
+        public const string PLAYER_ONE_TAG = "PlayerWhite";
+        public const string PLAYER_TWO_TAG = "PlayerBlack";
 
         public static readonly Dictionary<SceneNames, string> Scenes = new()
         {
@@ -22,7 +24,7 @@ namespace Constants
         /// <summary> 座標からオブジェクトを検索する </summary>
         /// <param name="pos"> 指定した座標 </param>
         /// <returns> 得られたオブジェクト </returns>
-        public static GameObject FindWithVector(Vector3 pos)
+        public static GameObject FindWithVector(Vector3 pos, string tag)
         {
             GameObject find = default;
             List<GameObject> objs = new();
@@ -38,7 +40,7 @@ namespace Constants
 
             foreach (var stone in objs)
             {
-                if (stone.CompareTag(STONE_TAG))
+                if (stone.CompareTag(tag))
                 {
                     find = stone;
                     break;
