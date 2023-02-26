@@ -8,9 +8,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayableStones
 {
-    /// <summary>
-    /// 配置可能なマスの判定
-    /// </summary>
+    /// <summary> 配置可能なマスの判定 </summary>
     public List<int[]> SettableStones(List<int[]> current)
     {
         List<int[]> checking = new();
@@ -35,9 +33,7 @@ public class PlayableStones
         //不可 （空でない）...1
     }
 
-    /// <summary>
-    /// 移動可能なマスの判定
-    /// </summary>
+    /// <summary> 移動可能なマスの判定 </summary>
     public void MovableStones(GameObject moveObj, List<int[]> current)
     {
         Vector3 pos = moveObj.transform.position;

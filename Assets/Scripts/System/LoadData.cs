@@ -16,7 +16,7 @@ public class LoadData
     public List<int[]> Board { get => _board; set => _board = value; }
     public GameObject[] Stone => _stone;
 
-    public void Awake()
+    public void Init()
     {
         LoadCsv();
         BoardSet();

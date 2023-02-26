@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         load.Stone[0] = _boardStone[0];
         load.Stone[1] = _boardStone[1];
 
-        load.Awake();
+        load.Init();
         _board = load.Board;
         _select.Board = load.Board;
     }
@@ -89,15 +89,30 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
+                Movable();
                 break;
             case 2:
                 //移動可能なマスの判定（引数は後で修正する）
                 _stones.MovableStones(gameObject, _board);
+                Movable();
                 break;
             case 3:
                 //パス（何もせずにターンを切り替える）
                 _select.IsSwitch = true;
                 break;
         }
+    }
+
+    private bool Movable()
+    {
+        if (!_select.IsSelect)
+        {
+            _select.IsMovable = true;
+        }
+        else
+        {
+            return false;
+        }
+        return _select.IsMovable;
     }
 }

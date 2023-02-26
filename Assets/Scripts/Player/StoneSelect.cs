@@ -1,5 +1,4 @@
 ﻿using Constants;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +9,12 @@ public class StoneSelect
     [SerializeField] private Material _selecting = default;
 
     private Vector3 _pos = Vector3.zero;
-    private bool _isSelect = false;
 
     public GameObject Player { get; set; }
     public List<int[]> Board { get; set; }
-    public List<GameObject[]> BoardState { get; set; }
-    /// <summary> ターンの切り替え </summary>
     public bool IsSwitch { get; set; }
+    public bool IsMovable { get; set; }
+    public bool IsSelect { get; protected set; }
 
     public void Update()
     {
@@ -28,7 +26,7 @@ public class StoneSelect
 
     private void SetObj(GameObject player)
     {
-        if (Input.GetKeyDown(KeyCode.Return) && _isSelect)
+        if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
             if (Board[(int)_pos.x][(int)_pos.z] == 0)
             {
@@ -38,17 +36,23 @@ public class StoneSelect
 
                 Debug.Log("マスを選択しました");
                 IsSwitch = true;
+                IsMovable = false;
             }
             else
             {
                 Debug.Log("ここには置けないです");
             }
-            _isSelect = false;
+            IsSelect = false;
+        }
+        else if (IsMovable)
+        {
+            Select(Input.inputString);
+            IsSelect = true;
         }
         else
         {
-            Select(Input.inputString);
-            _isSelect = true;
+            Debug.Log(IsMovable);
+            Debug.Log(IsSelect);
         }
     }
 
