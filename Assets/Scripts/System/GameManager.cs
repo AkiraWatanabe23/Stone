@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Turns _turn = default;
     [SerializeField] private Material[] _states = new Material[2];
+    [SerializeField] private Material[] _selecting = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
     [SerializeField] private StoneSelect _select = default;
@@ -59,7 +60,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SwitchTurn()
     {
+        //盤面を更新
         _board = _select.Board;
+
+        _select.Selecting =
+            _turn == Turns.WHITE ?
+            _selecting[1] : _selecting[0];
+
 
         _select.Player = 
             _turn == Turns.WHITE ?

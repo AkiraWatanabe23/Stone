@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class StoneSelect
 {
-    [SerializeField] private Material[] _default = new Material[3];
-    [SerializeField] private Material _selecting = default;
+    [SerializeField] private Material[] _default = new Material[4];
 
     private Vector3 _pos = Vector3.zero;
 
     public GameObject Player { get; set; }
+    public Material Selecting { get; set; }
     public List<int[]> Board { get; set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
@@ -32,7 +32,6 @@ public class StoneSelect
             {
                 Object.Instantiate(
                     player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
-                //TODO：ここで、オブジェクト設定をボードに反映させる必要有
                 Board[(int)_pos.x][(int)_pos.z] = 1;
 
                 Debug.Log("マスを選択しました");
@@ -49,11 +48,6 @@ public class StoneSelect
         {
             Select(Input.inputString);
             IsSelect = true;
-        }
-        else
-        {
-            Debug.Log(IsMovable);
-            Debug.Log(IsSelect);
         }
     }
 
@@ -132,7 +126,7 @@ public class StoneSelect
 
                 break;
         }
-        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = _selecting;
+        Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material = Selecting;
         return pos;
     }
 
