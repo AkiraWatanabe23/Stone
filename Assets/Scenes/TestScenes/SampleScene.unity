@@ -1307,6 +1307,9 @@ MonoBehaviour:
   _states:
   - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
   - {fileID: 2100000, guid: 6f120d8eb109a4d4b9ad8701393c5086, type: 2}
+  _selecting:
+  - {fileID: 2100000, guid: e586d2a584b52d94692dee00e94a21b6, type: 2}
+  - {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
   _players:
   - {fileID: 2417456842968965468, guid: c4e41d78d1418a64cbed528f11715669, type: 3}
   - {fileID: 3968282573149140767, guid: 8688efdaac2d42c47a4e53dcd725e78e, type: 3}
@@ -1318,9 +1321,6 @@ MonoBehaviour:
     - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
     - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
     - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
-    _selecting:
-    - {fileID: 2100000, guid: e586d2a584b52d94692dee00e94a21b6, type: 2}
-    - {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
   _image: {fileID: 1561204801}
 --- !u!114 &1248087290
 MonoBehaviour:
