@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Turns Turn { get => _turn; protected set => _turn = value; }
     public List<int[]> Board { get => _board; set => _board = value; }
     public List<int[]> CheckBoard { get => _checkBoard; protected set => _checkBoard = value; }
+    public GameObject Player { get; protected set; }
+    public Material Selecting { get; protected set; }
     public MoveType Move { get; protected set; }
 
     private void Start()
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         load.Init();
         _board = load.Board;
-        _select.Selecting = _selecting[0];
+        Selecting = _selecting[0];
 
         for (int i = 0; i < 5; i++)
         {
@@ -44,8 +46,7 @@ public class GameManager : MonoBehaviour
         }
 
         _turn = Turns.WHITE;
-        _select.Turn = _turn;
-        _select.Player = _players[0];
+        Player = _players[0];
     }
 
     private void Update()
@@ -76,18 +77,17 @@ public class GameManager : MonoBehaviour
 
         if (_turn == Turns.WHITE)
         {
-            _select.Selecting = _selecting[1];
-            _select.Player = _players[1];
+            Selecting = _selecting[1];
+            Player = _players[1];
             _turn = Turns.BLACK;
         }
         else
         {
-            _select.Selecting = _selecting[0];
-            _select.Player = _players[0];
+            Selecting = _selecting[0];
+            Player = _players[0];
             _turn = Turns.WHITE;
         }
         Move = MoveType.DEFAULT;
-        _select.Turn = _turn;
         _uiManager.MoveSelect.gameObject.SetActive(true);
         Debug.Log("ターンを切り替えます");
     }
