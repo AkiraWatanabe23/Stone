@@ -1,5 +1,4 @@
 ﻿using Constants;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StoneSelect : MonoBehaviour
@@ -25,10 +24,29 @@ public class StoneSelect : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SetObj(Player);
+            if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
+            {
+                if (_manager.Move == MoveType.SET)
+                {
+                    SetObj(Player);
+                }
+                else if (_manager.Move == MoveType.MOVE)
+                {
+                    SelectPiece();
+                }
+            }
+            else if (IsMovable)
+            {
+                Select(Input.inputString);
+                if (!IsSelect)
+                {
+                    IsSelect = true;
+                }
+            }
         }
     }
 
+    /// <summary> 新しく駒を配置する場合 </summary>
     private void SetObj(GameObject player)
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
@@ -47,19 +65,37 @@ public class StoneSelect : MonoBehaviour
             }
             else
             {
-                Debug.Log("ここには置けないです");
+                Debug.Log("このマスには置けないです");
             }
             IsSelect = false;
         }
         else if (IsMovable)
         {
             Select(Input.inputString);
-            IsSelect = true;
+            if (!IsSelect)
+            {
+                IsSelect = true;
+            }
+        }
+    }
+
+    private void SelectPiece()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
+        {
+
+        }
+        else if (IsMovable)
+        {
+            Select(Input.inputString);
+            if (!IsSelect)
+            {
+                IsSelect = true;
+            }
         }
     }
 
     /// <summary> Playerの入力 </summary>
-    /// <param name="input"> 入力されたキー </param>
     private void Select(string input)
     {
         switch (input)
