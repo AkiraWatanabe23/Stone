@@ -43,33 +43,36 @@ public class PlayableStones
             checking.Add(new int[] { 1, 1, 1, 1, 1 });
         }
 
-        for (int i = 0; i < current.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < current[i].Length; j++)
+            for (int j = 0; j < 5; j++)
             {
                 if (turn == Turns.WHITE)
                 {
-                    if (current[i][j] == 1)
+                    if (current[i][j] == 1 ||
+                        current[i][j] == 2)
                     {
                         checking[i][j] = 0;
                     }
                 }
-                else
+                else if (turn == Turns.BLACK)
                 {
-                    if (current[i][j] == -1)
+                    if (current[i][j] == -1 ||
+                        current[i][j] == -2)
                     {
                         checking[i][j] = 0;
                     }
                 }
             }
         }
+        return checking;
+        //移動可...0
+        //不可　...1
 
+        //駒の移動範囲の条件
         //1, 自分の周辺が0
         //2, 　　　　　　1 or -1
         //3, 　　　　　にいるものと符号が同じ(2 or -2)
 
-        //移動可...0
-        //不可　...1
-        return checking;
     }
 }

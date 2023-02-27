@@ -26,7 +26,7 @@ namespace Constants
         /// <returns> 得られたオブジェクト </returns>
         public static GameObject FindWithVector(Vector3 pos, string tag)
         {
-            GameObject find = default;
+            GameObject find = null;
             List<GameObject> objs = new();
 
             foreach (GameObject obj
