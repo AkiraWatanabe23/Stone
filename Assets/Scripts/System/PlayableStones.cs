@@ -40,6 +40,7 @@ public class PlayableStones
         List<int[]> checking = new();
         for (int i = 0; i < 5; i++)
         {
+            //ここの配列宣言が問題ぽい
             checking.Add(new int[] { 1, 1, 1, 1, 1 });
         }
 

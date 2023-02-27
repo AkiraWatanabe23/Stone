@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
                     }
                     catch
                     {
-                        Debug.Log($"ここでエラー\n{new Vector3(i, num, j)}, {_select.Board[i][j]}");
+                        Debug.Log($"ここでエラー\n{new Vector3(i, num, j)}, {_select.Board[i][j]}, {_turn}");
                     }
                 }
             }
