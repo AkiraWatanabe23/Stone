@@ -1,5 +1,6 @@
 ﻿using Constants;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,19 +10,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material[] _selecting = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
-    [SerializeField] private StoneSelect _select = default;
 
-    /// <summary> 盤面を数値で表現したもの（この値を更新して盤面に反映する） </summary>
+    /// <summary> 盤面を数値で表現したもの </summary>
     private List<int[]> _board = new();
+    /// <summary> 駒の配置、移動の際に使う判定用のList </summary>
+    private List<int[]> _checkBoard = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
+    private StoneSelect _select = default;
     private UIManager _uiManager = default;
 
     public Turns Turn { get => _turn; protected set => _turn = value; }
+    public List<int[]> Board { get => _board; set => _board = value; }
+    public List<int[]> CheckBoard { get => _checkBoard; protected set => _checkBoard = value; }
     public MoveType Move { get; set; }
 
-    private void Awake()
+    private void Start()
     {
+        _select = GetComponent<StoneSelect>();
         _uiManager = GetComponent<UIManager>();
 
         LoadData load = new();
@@ -30,12 +36,13 @@ public class GameManager : MonoBehaviour
 
         load.Init();
         _board = load.Board;
-        _select.Board = load.Board;
         _select.Selecting = _selecting[0];
-    }
 
-    private void Start()
-    {
+        for (int i = 0; i < 5; i++)
+        {
+            _checkBoard.Add(new int[] { 0, 0, 0, 0, 0 });
+        }
+
         _turn = Turns.WHITE;
         _select.Turn = _turn;
         _select.Player = _players[0];
@@ -43,8 +50,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _select.Update();
-
         //判定
         if (_select.IsSwitch)
         {
@@ -63,8 +68,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SwitchTurn()
     {
-        //盤面を更新
-        _board = _select.Board;
+        //判定用のListをリセット
+        for (int i = 0; i < 5; i++)
+        {
+            _checkBoard[i] = new int[] { 0, 0, 0, 0, 0 };
+        }
 
         if (_turn == Turns.WHITE)
         {
@@ -109,14 +117,14 @@ public class GameManager : MonoBehaviour
         if (num == 0)
         {
             //配置可能なマスの判定
-            _select.Board = _stones.SettableStones(_board);
+            _checkBoard = _stones.SettableStones(_board);
             tag = Consts.STONE_TAG;
         }
         else if (num == 1)
         {
             //移動可能な駒の探索
             //1,動かす駒を選ぶ
-            _select.Board = _stones.MovableStones(_board, _turn);
+            _checkBoard = _stones.MovableStones(_board, _turn);
             tag = _turn == Turns.WHITE ?
                   Consts.PLAYER_ONE_TAG : Consts.PLAYER_TWO_TAG;
             //2,移動するマスを選ぶ
@@ -126,19 +134,10 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 5; j++)
             {
-                if (_select.Board[i][j] == 0)
+                if (_checkBoard[i][j] == 1)
                 {
-                    //味方の駒が複数になるとエラー発生する...何故?
-                    //敵駒の位置でエラーが発生している
-                    try
-                    {
-                        Consts.FindWithVector(new Vector3(i, num, j), tag).
-                            GetComponent<MeshRenderer>().material = _states[0];
-                    }
-                    catch
-                    {
-                        Debug.Log($"ここでエラー\n{new Vector3(i, num, j)}, {_select.Board[i][j]}, {_turn}");
-                    }
+                    Consts.FindWithVector(new Vector3(i, num, j), tag).
+                        GetComponent<MeshRenderer>().material = _states[0];
                 }
             }
         }

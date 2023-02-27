@@ -15,23 +15,23 @@ public class PlayableStones
         List<int[]> checking = new();
         for (int i = 0; i < 5; i++)
         {
-            checking.Add(new int[] { 1, 1, 1, 1, 1 });
+            checking.Add(new int[] { 0, 0, 0, 0, 0 });
         }
 
-        for (int i = 0; i < current.Count; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for (int j = 0; j < current[i].Length; j++)
+            for (int j = 0; j < 5; j++)
             {
                 //そのマスが空なら
                 if (current[i][j] == 0)
                 {
-                    checking[i][j] = 0;
+                    checking[i][j] = 1;
                 }
             }
         }
         return checking;
-        //配置可（空）     ...0
-        //不可 （空でない）...1
+        //配置可（空）     ...1
+        //不可 （空でない）...0
     }
 
     /// <summary> 移動可能な駒の判定 </summary>
@@ -41,7 +41,7 @@ public class PlayableStones
         for (int i = 0; i < 5; i++)
         {
             //ここの配列宣言が問題ぽい
-            checking.Add(new int[] { 1, 1, 1, 1, 1 });
+            checking.Add(new int[] { 0, 0, 0, 0, 0 });
         }
 
         for (int i = 0; i < 5; i++)
@@ -53,7 +53,7 @@ public class PlayableStones
                     if (current[i][j] == 1 ||
                         current[i][j] == 2)
                     {
-                        checking[i][j] = 0;
+                        checking[i][j] = 1;
                     }
                 }
                 else if (turn == Turns.BLACK)
@@ -61,14 +61,14 @@ public class PlayableStones
                     if (current[i][j] == -1 ||
                         current[i][j] == -2)
                     {
-                        checking[i][j] = 0;
+                        checking[i][j] = 1;
                     }
                 }
             }
         }
         return checking;
-        //移動可...0
-        //不可　...1
+        //移動可...1
+        //不可　...0
 
         //駒の移動範囲の条件
         //1, 自分の周辺が0

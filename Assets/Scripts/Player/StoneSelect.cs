@@ -2,22 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class StoneSelect
+public class StoneSelect : MonoBehaviour
 {
-    [SerializeField] private Material[] _default = new Material[4];
+    [SerializeField] private Material[] _default = new Material[3];
 
     private Vector3 _pos = Vector3.zero;
+    private GameManager _manager = default;
 
     public Turns Turn { get; set; }
     public GameObject Player { get; set; }
     public Material Selecting { get; set; }
-    public List<int[]> Board { get; set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
     public bool IsSelect { get; protected set; }
 
-    public void Update()
+    private void Start()
+    {
+        _manager = GetComponent<GameManager>();
+    }
+
+    private void Update()
     {
         if (Input.anyKeyDown)
         {
@@ -29,11 +33,12 @@ public class StoneSelect
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
-            if (Board[(int)_pos.x][(int)_pos.z] == 0)
+            if (_manager.CheckBoard[(int)_pos.x][(int)_pos.z] == 1)
             {
-                Object.Instantiate(
+                Instantiate(
                     player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
-                Board[(int)_pos.x][(int)_pos.z] =
+                //ここを変える
+                _manager.Board[(int)_pos.x][(int)_pos.z] =
                     Turn == Turns.WHITE ? 1 : -1;
 
                 Debug.Log("マスを選択しました");
@@ -83,7 +88,7 @@ public class StoneSelect
         //Materialの描画
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
-            if (Board[(int)pos.x][(int)pos.z] == 0)
+            if (_manager.CheckBoard[(int)pos.x][(int)pos.z] == 1)
             {
                 mat = _default[2];
             }
