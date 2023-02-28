@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private List<int[]> _checkBoard = new();
     private readonly PlayableStones _stones = new();
     private readonly Judgment _judge = new();
-    private StoneSelect _select = default;
+    private Selecting _select = default;
     private UIManager _uiManager = default;
 
     public Turns Turn { get => _turn; protected set => _turn = value; }
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _select = GetComponent<StoneSelect>();
+        _select = GetComponent<Selecting>();
         _uiManager = GetComponent<UIManager>();
 
         LoadData load = new();
