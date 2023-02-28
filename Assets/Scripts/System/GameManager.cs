@@ -1,6 +1,5 @@
 ﻿using Constants;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -116,20 +115,16 @@ public class GameManager : MonoBehaviour
 
     private void Movement(int num)
     {
-        string tag = "";
         if (num == 0)
         {
             //配置可能なマスの判定
             _checkBoard = _stones.SettableStones(_board);
-            tag = Consts.STONE_TAG;
         }
         else if (num == 1)
         {
             //移動可能な駒の探索
             //1,動かす駒を選ぶ
             _checkBoard = _stones.MovableStones(_board, _turn);
-            tag = _turn == Turns.WHITE ?
-                  Consts.PLAYER_ONE_TAG : Consts.PLAYER_TWO_TAG;
             //2,移動するマスを選ぶ
         }
 
@@ -139,7 +134,7 @@ public class GameManager : MonoBehaviour
             {
                 if (_checkBoard[i][j] == 1)
                 {
-                    Consts.FindWithVector(new Vector3(i, num, j), tag).
+                    Consts.FindWithVector(new Vector3(i, num, j)).
                         GetComponent<MeshRenderer>().material = _states[0];
                 }
             }

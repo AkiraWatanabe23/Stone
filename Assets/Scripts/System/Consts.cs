@@ -24,25 +24,16 @@ namespace Constants
         /// <summary> 座標からオブジェクトを検索する </summary>
         /// <param name="pos"> 指定した座標 </param>
         /// <returns> 得られたオブジェクト </returns>
-        public static GameObject FindWithVector(Vector3 pos, string tag)
+        public static GameObject FindWithVector(Vector3 pos)
         {
             GameObject find = null;
-            List<GameObject> objs = new();
 
             foreach (GameObject obj
                      in Object.FindObjectsOfType(typeof(GameObject)).Cast<GameObject>())
             {
                 if (pos == obj.transform.position)
                 {
-                    objs.Add(obj);
-                }
-            }
-
-            foreach (var stone in objs)
-            {
-                if (stone.CompareTag(tag))
-                {
-                    find = stone;
+                    find = obj;
                     break;
                 }
             }

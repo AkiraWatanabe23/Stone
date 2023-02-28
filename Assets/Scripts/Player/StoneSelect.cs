@@ -5,7 +5,10 @@ public class StoneSelect : MonoBehaviour
 {
     [SerializeField] private Material[] _default = new Material[3];
 
-    private Vector3 _pos = Vector3.zero;
+    /// <summary> マスを選択するときのVector </summary>
+    private Vector3 _stonePos = Vector3.zero;
+    /// <summary> 駒を選択するときのVector </summary>
+    private Vector3 _piecePos = Vector3.up;
     private GameManager _manager = default;
 
     public bool IsSwitch { get; set; }
@@ -28,6 +31,7 @@ public class StoneSelect : MonoBehaviour
             else if (_manager.Move == MoveType.MOVE)
             {
                 SelectPiece();
+                MovePiece();
             }
         }
     }
@@ -37,12 +41,11 @@ public class StoneSelect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
-            if (_manager.CheckBoard[(int)_pos.x][(int)_pos.z] == 1)
+            if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
             {
                 Instantiate(
-                    player, new Vector3((int)_pos.x, 1f, (int)_pos.z), Quaternion.identity);
-                //ここを変える
-                _manager.Board[(int)_pos.x][(int)_pos.z] =
+                    player, new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z), Quaternion.identity);
+                _manager.Board[(int)_stonePos.x][(int)_stonePos.z] =
                     _manager.Turn == Turns.WHITE ? 1 : -1;
 
                 Debug.Log("駒を配置しました");
@@ -59,26 +62,25 @@ public class StoneSelect : MonoBehaviour
         {
             Select(Input.inputString);
             if (!IsSelect)
-            {
                 IsSelect = true;
-            }
         }
     }
 
+    /// <summary> 動かす駒を選ぶ（動かせる駒は探索済） </summary>
     private void SelectPiece()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
-        {
-
-        }
-        else if (IsMovable)
+        if (IsMovable)
         {
             Select(Input.inputString);
             if (!IsSelect)
-            {
                 IsSelect = true;
-            }
         }
+    }
+
+    /// <summary> 選んだ駒を移動させる </summary>
+    private void MovePiece()
+    {
+        //TODO：駒の移動範囲の探索、描画（他のクラスでもいいかも）
     }
 
     /// <summary> Playerの入力 </summary>
@@ -87,16 +89,31 @@ public class StoneSelect : MonoBehaviour
         switch (input)
         {
             case "w":
-                _pos = SelectStone(0, _pos);
+                if (_manager.Move == MoveType.SET)
+                    _stonePos = SelectStone(0, _stonePos);
+                else if (_manager.Move == MoveType.MOVE)
+                    _piecePos = SelectMovablePiece(0, _piecePos);
                 break;
+
             case "s":
-                _pos = SelectStone(1, _pos);
+                if (_manager.Move == MoveType.SET)
+                    _stonePos = SelectStone(1, _stonePos);
+                else if (_manager.Move == MoveType.MOVE)
+                    _piecePos = SelectMovablePiece(1, _piecePos);
                 break;
+
             case "a":
-                _pos = SelectStone(2, _pos);
+                if (_manager.Move == MoveType.SET)
+                    _stonePos = SelectStone(2, _stonePos);
+                else if (_manager.Move == MoveType.MOVE)
+                    _piecePos = SelectMovablePiece(2, _piecePos);
                 break;
+
             case "d":
-                _pos = SelectStone(3, _pos);
+                if (_manager.Move == MoveType.SET)
+                    _stonePos = SelectStone(3, _stonePos);
+                else if (_manager.Move == MoveType.MOVE)
+                    _piecePos = SelectMovablePiece(3, _piecePos);
                 break;
         }
     }
@@ -104,22 +121,19 @@ public class StoneSelect : MonoBehaviour
     /// <summary> マスの選択（描画の切り替え） </summary>
     private Vector3 SelectStone(int dir, Vector3 pos)
     {
-        string tag = Consts.STONE_TAG;
-        var mat = Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material;
+        var mat =
+            Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material;
 
         //Materialの描画
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
             if (_manager.CheckBoard[(int)pos.x][(int)pos.z] == 1)
-            {
                 mat = _default[2];
-            }
             else
-            {
                 mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
-            }
         }
-        Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material = mat;
+        Consts.FindWithVector(pos).
+            GetComponent<MeshRenderer>().material = mat;
 
         switch (dir)
         {
@@ -156,7 +170,13 @@ public class StoneSelect : MonoBehaviour
 
                 break;
         }
-        Consts.FindWithVector(pos, tag).GetComponent<MeshRenderer>().material = _manager.Selecting;
+        Consts.FindWithVector(pos).
+            GetComponent<MeshRenderer>().material = _manager.Selecting;
+        return pos;
+    }
+
+    private Vector3 SelectMovablePiece(int dir, Vector3 pos)
+    {
         return pos;
     }
 
@@ -167,7 +187,7 @@ public class StoneSelect : MonoBehaviour
         {
             for (int j = 0; j < 5; j++)
             {
-                Consts.FindWithVector(new Vector3(i, 0, j), Consts.STONE_TAG).
+                Consts.FindWithVector(new Vector3(i, 0, j)).
                     GetComponent<MeshRenderer>().material
                     = (i + j) % 2 == 0 ? _default[0] : _default[1];
             }
