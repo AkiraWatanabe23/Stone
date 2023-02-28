@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         }
         Move = MoveType.DEFAULT;
         _uiManager.MoveSelect.gameObject.SetActive(true);
-        Debug.Log("ターンを切り替えます");
     }
 
     /// <summary>

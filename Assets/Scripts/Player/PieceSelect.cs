@@ -40,6 +40,50 @@ public class PieceSelect
 
     private Vector3 SelectPiece(int dir, Vector3 pos)
     {
+        var piece = Consts.FindWithVector(pos);
+        var mat = piece.GetComponent<MeshRenderer>().material;
+
+        if (mat.name.Contains("Yellow"))
+        {
+            mat = _default[2];
+        }
+        piece.GetComponent<MeshRenderer>().material = mat;
+
+        switch (dir)
+        {
+            //上方向
+            case 0:
+                if (pos.z + 1 > 4)
+                    pos.z = 0;
+                else
+                    pos.z++;
+
+                break;
+            //下方向
+            case 1:
+                if (pos.z - 1 < 0)
+                    pos.z = 4;
+                else
+                    pos.z--;
+
+                break;
+            //左方向
+            case 2:
+                if (pos.x - 1 < 0)
+                    pos.x = 4;
+                else
+                    pos.x--;
+
+                break;
+            //右方向
+            case 3:
+                if (pos.x + 1 > 4)
+                    pos.x = 0;
+                else
+                    pos.x++;
+
+                break;
+        }
         return pos;
     }
 }

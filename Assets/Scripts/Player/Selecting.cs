@@ -24,6 +24,7 @@ public class Selecting : MonoBehaviour
     {
         _manager = GetComponent<GameManager>();
         _stone.Start(_manager, _default);
+        _piece.Start(_manager, _default);
     }
 
     private void Update()
@@ -95,47 +96,6 @@ public class Selecting : MonoBehaviour
     private void MovePiece()
     {
         //TODO：駒の移動範囲の探索、描画（他のクラスでもいいかも）
-    }
-
-    private Vector3 SelectMovablePiece(int dir, Vector3 pos)
-    {
-        //内容は後で修正
-        switch (dir)
-        {
-            //上方向
-            case 0:
-                if (pos.z + 1 > 4)
-                    pos.z = 0;
-                else
-                    pos.z++;
-
-                break;
-            //下方向
-            case 1:
-                if (pos.z - 1 < 0)
-                    pos.z = 4;
-                else
-                    pos.z--;
-
-                break;
-            //左方向
-            case 2:
-                if (pos.x - 1 < 0)
-                    pos.x = 4;
-                else
-                    pos.x--;
-
-                break;
-            //右方向
-            case 3:
-                if (pos.x + 1 > 4)
-                    pos.x = 0;
-                else
-                    pos.x++;
-
-                break;
-        }
-        return pos;
     }
 
     /// <summary> ボードのリセット </summary>

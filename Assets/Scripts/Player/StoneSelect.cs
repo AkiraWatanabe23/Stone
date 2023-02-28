@@ -41,8 +41,8 @@ public class StoneSelect
     /// <summary> マスの選択（描画の切り替え） </summary>
     private Vector3 SelectStone(int dir, Vector3 pos)
     {
-        var mat =
-            Consts.FindWithVector(pos).GetComponent<MeshRenderer>().material;
+        var stone = Consts.FindWithVector(pos);
+        var mat = stone.GetComponent<MeshRenderer>().material;
 
         //Materialの描画
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
@@ -52,8 +52,7 @@ public class StoneSelect
             else
                 mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
         }
-        Consts.FindWithVector(pos).
-            GetComponent<MeshRenderer>().material = mat;
+        stone.GetComponent<MeshRenderer>().material = mat;
 
         switch (dir)
         {
