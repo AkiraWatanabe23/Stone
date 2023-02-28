@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player { get; protected set; }
     public Material Selecting { get; protected set; }
     public MoveType Move { get; protected set; }
+    public List<GameObject> White { get; set; }
+    public List<GameObject> Black { get; set; }
 
     private void Start()
     {

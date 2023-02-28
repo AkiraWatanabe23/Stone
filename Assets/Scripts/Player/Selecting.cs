@@ -1,17 +1,13 @@
 ﻿using Constants;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Selecting : MonoBehaviour
 {
     [SerializeField] private Material[] _default = new Material[3];
 
-    private List<GameObject> _white = new();
-    private List<GameObject> _black = new();
+    private int _index = 0;
     /// <summary> マスを選択するときのVector </summary>
     private Vector3 _stonePos = Vector3.zero;
-    /// <summary> 駒を選択するときのVector </summary>
-    private Vector3 _piecePos = Vector3.up;
     private GameManager _manager = default;
     private readonly StoneSelect _stone = new();
     private readonly PieceSelect _piece = new();
@@ -55,12 +51,12 @@ public class Selecting : MonoBehaviour
                 if (_manager.Turn == Turns.WHITE)
                 {
                     _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 1;
-                    _white.Add(piece);
+                    _manager.White.Add(piece);
                 }
                 else
                 {
                     _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = -1;
-                    _black.Add(piece);
+                    _manager.Black.Add(piece);
                 }
 
                 Debug.Log("駒を配置しました");
@@ -86,7 +82,9 @@ public class Selecting : MonoBehaviour
     {
         if (IsMovable)
         {
-            _piecePos = _piece.Select(Input.inputString, _piecePos);
+            Debug.Log("選択中..");
+            _index =
+                _piece.Select(Input.inputString, _index);
             if (!IsSelect)
                 IsSelect = true;
         }

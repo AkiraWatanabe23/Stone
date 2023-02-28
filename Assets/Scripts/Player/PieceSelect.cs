@@ -15,75 +15,72 @@ public class PieceSelect
     }
 
     /// <summary> Playerの入力 </summary>
-    public Vector3 Select(string input, Vector3 pos)
+    public int Select(string input, int index)
     {
+        int num = 0;
         switch (input)
         {
             case "w":
-                pos = SelectPiece(0, pos);
-                break;
-
             case "s":
-                pos = SelectPiece(1, pos);
-                break;
-
             case "a":
-                pos = SelectPiece(2, pos);
-                break;
-
             case "d":
-                pos = SelectPiece(3, pos);
+                num = SelectPiece(index);
                 break;
         }
-        return pos;
+        return num;
     }
 
-    private Vector3 SelectPiece(int dir, Vector3 pos)
+    private int SelectPiece(int index)
     {
-        var piece = Consts.FindWithVector(pos);
+        GameObject piece = null;
+        if (_manager.Turn == Turns.WHITE)
+            piece =
+                Consts.FindWithVector(_manager.White[index].transform.position);
+        else if (_manager.Turn == Turns.BLACK)
+            piece =
+                Consts.FindWithVector(_manager.Black[index].transform.position);
         var mat = piece.GetComponent<MeshRenderer>().material;
 
-        if (mat.name.Contains("Yellow"))
+        if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
             mat = _default[2];
         }
+        else
+        {
+            Debug.Log(mat.name);
+        }
         piece.GetComponent<MeshRenderer>().material = mat;
 
-        switch (dir)
+        if (_manager.Turn == Turns.WHITE)
         {
-            //上方向
-            case 0:
-                if (pos.z + 1 > 4)
-                    pos.z = 0;
-                else
-                    pos.z++;
-
-                break;
-            //下方向
-            case 1:
-                if (pos.z - 1 < 0)
-                    pos.z = 4;
-                else
-                    pos.z--;
-
-                break;
-            //左方向
-            case 2:
-                if (pos.x - 1 < 0)
-                    pos.x = 4;
-                else
-                    pos.x--;
-
-                break;
-            //右方向
-            case 3:
-                if (pos.x + 1 > 4)
-                    pos.x = 0;
-                else
-                    pos.x++;
-
-                break;
+            if (index + 1 <= _manager.White.Count - 1)
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
         }
-        return pos;
+        else if (_manager.Turn == Turns.BLACK)
+        {
+            if (index + 1 <= _manager.Black.Count - 1)
+            {
+                index++;
+            }
+            else
+            {
+                index = 0;
+            }
+        }
+
+        if (_manager.Turn == Turns.WHITE)
+            Consts.FindWithVector(_manager.White[index].transform.position).
+                GetComponent<MeshRenderer>().material = _manager.Selecting;
+        else if (_manager.Turn == Turns.BLACK)
+            Consts.FindWithVector(_manager.Black[index].transform.position).
+                GetComponent<MeshRenderer>().material = _manager.Selecting;
+
+        return index;
     }
 }
