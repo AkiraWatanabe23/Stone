@@ -1,5 +1,6 @@
 ﻿using Constants;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
             if (_select.SelectedPiece == null)
             {
                 //1,動かす駒を選ぶ
+                Debug.Log("search stone...");
                 _checkBoard = _stones.MovableStones(_board, _turn);
             }
             else

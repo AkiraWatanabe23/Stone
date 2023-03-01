@@ -10,12 +10,11 @@ public class Selecting : MonoBehaviour
     /// <summary> マスを選択するときのVector </summary>
     private Vector3 _stonePos = Vector3.zero;
     private GameManager _manager = default;
-    private GameObject _selectedPiece = default;
     private readonly StoneSelect _stone = new();
     private readonly PieceSelect _piece = new();
 
     public Material[] PieceCol { get => _pieceCol; protected set => _pieceCol = value; }
-    public GameObject SelectedPiece { get => _selectedPiece; protected set => _selectedPiece = value; }
+    public GameObject SelectedPiece { get; protected set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
     public bool IsSelect { get; protected set; }
@@ -37,7 +36,7 @@ public class Selecting : MonoBehaviour
             }
             else if (_manager.Move == MoveType.MOVE)
             {
-                if (_selectedPiece == null)
+                if (SelectedPiece == null)
                 {
                     SelectPiece();
                 }
@@ -92,7 +91,7 @@ public class Selecting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
-            _selectedPiece = _manager.Turn == Turns.WHITE ?
+            SelectedPiece = _manager.Turn == Turns.WHITE ?
                              _manager.White[_index] : _manager.Black[_index];
             _manager.Movement(1);
         }
@@ -113,17 +112,18 @@ public class Selecting : MonoBehaviour
         {
             if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
             {
-                var pos = _selectedPiece.transform.position;
+                var pos = SelectedPiece.transform.position;
                 _manager.Board[(int)pos.x][(int)pos.z] = 0;
 
                 pos.x = _stonePos.x;
                 pos.z = _stonePos.z;
-                _selectedPiece.transform.position = pos;
+                SelectedPiece.transform.position = pos;
 
                 _manager.Board[(int)pos.x][(int)pos.z] =
                     _manager.Turn == Turns.WHITE ? 1 : -1;
 
                 Debug.Log("駒を移動しました");
+                SelectedPiece = null;
                 IsSwitch = true;
                 IsMovable = false;
             }

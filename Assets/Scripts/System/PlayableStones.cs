@@ -102,7 +102,6 @@ public class PlayableStones
                     else if (j == 2)
                         z -= 2;
 
-                    Debug.Log($"{x}, {z}");
                     if (current[x][z] == 0)
                         checking[x][z] = 1;
                 }
@@ -112,13 +111,18 @@ public class PlayableStones
         else
         {
             //駒が端のラインにある場合
-            if (x == 0)
+            if (x == 0 || x == 4)
             {
-                //左端
+                //左端、右端
                 for (int i = 0; i < 2; i++)
                 {
                     if (i == 1)
-                        x++;
+                    {
+                        if (x == 0)
+                            x++;
+                        else if (x == 4)
+                            x--;
+                    }
 
                     for (int j = 0; j < 3; j++)
                     {
@@ -136,20 +140,25 @@ public class PlayableStones
                     z++;
                 }
             }
-            else if (x == 4)
+            else if (z == 0 || z == 4)
             {
-                //右端
+                ////下段、上段
                 for (int i = 0; i < 2; i++)
                 {
                     if (i == 1)
-                        x--;
+                    {
+                        if (z == 0)
+                            z++;
+                        else if (z == 4)
+                            z--;
+                    }
 
                     for (int j = 0; j < 3; j++)
                     {
                         if (j == 1)
-                            z++;
+                            x++;
                         else if (j == 2)
-                            z -= 2;
+                            x -= 2;
 
                         if (0 <= z && z < current.Count)
                         {
@@ -157,7 +166,7 @@ public class PlayableStones
                                 checking[x][z] = 1;
                         }
                     }
-                    z++;
+                    x++;
                 }
             }
         }
