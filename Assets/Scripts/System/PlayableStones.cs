@@ -81,17 +81,77 @@ public class PlayableStones
         {
             checking.Add(new int[] { 0, 0, 0, 0, 0 });
         }
-        var x = piece.transform.position.x;
-        var z = piece.transform.position.z;
+        var x = (int)piece.transform.position.x;
+        var z = (int)piece.transform.position.z;
 
         if (1 <= x && x <= 3 &&
             1 <= z && z <= 3)
         {
             //全方向の探索を行う場合
+            for (int i = 0; i < 3; i++)
+            {
+                if (i == 1)
+                    x++;
+                else if (i == 2)
+                    x -= 2;
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (i == 1)
+                        z++;
+                    else if (i == 2)
+                        z -= 2;
+
+                    if (current[x][z] == 0)
+                        checking[x][z] = 1;
+                }
+                x += 2;
+                z += 2;
+            }
         }
         else
         {
             //駒が端のラインにある場合
+            //1,角にある場合
+            if (x == 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i == 1)
+                        x++;
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        if (z == 0)
+                        {
+                            //左下
+                            if (j == 1)
+                                z++;
+                        }
+                        else
+                        {
+                            //左上
+                            if (j == 1)
+                                z--;
+                        }
+
+                        if (current[x][z] == 0)
+                            checking[x][z] = 1;
+                    }
+                }
+            }
+            else if (x == 4)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+
+                }
+            }
+            //2,そうでない場合
+            else
+            {
+
+            }
         }
 
 
