@@ -4,6 +4,7 @@ using UnityEngine;
 public class Selecting : MonoBehaviour
 {
     [SerializeField] private Material[] _default = new Material[3];
+    [SerializeField] private Material[] _pieceCol = new Material[2];
 
     private int _index = 0;
     /// <summary> マスを選択するときのVector </summary>
@@ -13,6 +14,7 @@ public class Selecting : MonoBehaviour
     private readonly StoneSelect _stone = new();
     private readonly PieceSelect _piece = new();
 
+    public Material[] PieceCol { get => _pieceCol; protected set => _pieceCol = value; }
     public GameObject SelectedPiece { get => _selectedPiece; protected set => _selectedPiece = value; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
@@ -85,13 +87,14 @@ public class Selecting : MonoBehaviour
         }
     }
 
-    /// <summary> 動かす駒を選ぶ（動かせる駒は探索済） </summary>
+    /// <summary> 動かす駒を選ぶ </summary>
     private void SelectPiece()
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
             _selectedPiece = _manager.Turn == Turns.WHITE ?
                              _manager.White[_index] : _manager.Black[_index];
+            _manager.Movement(1);
         }
         else if (IsMovable)
         {
@@ -103,26 +106,21 @@ public class Selecting : MonoBehaviour
         }
     }
 
-    /// <summary> 選んだ駒を移動させる </summary>
+    /// <summary> 選んだ駒を移動させて、盤面情報を更新する </summary>
     private void MovePiece()
     {
-        //TODO：選んだ駒を指定したマスに移動させて、盤面情報を更新する
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
             if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
             {
-                //var piece = Instantiate(
-                //    player, new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z), Quaternion.identity);
-                //if (_manager.Turn == Turns.WHITE)
-                //{
-                //    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 1;
-                //    _manager.White.Add(piece);
-                //}
-                //else
-                //{
-                //    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = -1;
-                //    _manager.Black.Add(piece);
-                //}
+                var pos = _selectedPiece.transform.position;
+                pos.x = _stonePos.x;
+                pos.z = _stonePos.z;
+                _selectedPiece.transform.position = pos;
+                //盤面情報の更新↓
+                _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 0;
+                _manager.Board[(int)pos.x][(int)pos.z] =
+                    _manager.Turn == Turns.WHITE ? 1 : -1;
 
                 Debug.Log("駒を移動しました");
                 IsSwitch = true;
@@ -153,6 +151,21 @@ public class Selecting : MonoBehaviour
                     GetComponent<MeshRenderer>().material
                     = (i + j) % 2 == 0 ? _default[0] : _default[1];
             }
+        }
+    }
+
+    public void PieceFresh()
+    {
+        for (int i = 0; i < _manager.White.Count; i++)
+        {
+            Consts.FindWithVector(_manager.White[i].transform.position).
+                GetComponent<MeshRenderer>().material = _pieceCol[0];
+        }
+
+        for (int i = 0; i < _manager.Black.Count; i++)
+        {
+            Consts.FindWithVector(_manager.Black[i].transform.position).
+                GetComponent<MeshRenderer>().material = _pieceCol[1];
         }
     }
 }

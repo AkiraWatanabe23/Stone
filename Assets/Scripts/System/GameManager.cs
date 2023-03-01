@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Turns _turn = default;
     [SerializeField] private Material[] _states = new Material[2];
-    [SerializeField] private Material[] _selecting = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
 
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
 
         load.Init();
         _board = load.Board;
-        Selecting = _selecting[0];
+        Selecting = _select.PieceCol[0];
         White = new();
         Black = new();
 
@@ -63,6 +62,7 @@ public class GameManager : MonoBehaviour
             _select.IsSwitch = false;
 
             _select.BoardFresh();
+            _select.PieceFresh();
             SwitchTurn();
         }
     }
@@ -80,13 +80,13 @@ public class GameManager : MonoBehaviour
 
         if (_turn == Turns.WHITE)
         {
-            Selecting = _selecting[1];
+            Selecting = _select.PieceCol[1];
             Player = _players[1];
             _turn = Turns.BLACK;
         }
         else
         {
-            Selecting = _selecting[0];
+            Selecting = _select.PieceCol[0];
             Player = _players[0];
             _turn = Turns.WHITE;
         }
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Movement(int num)
+    public void Movement(int num)
     {
         if (num == 0)
         {
@@ -126,11 +126,17 @@ public class GameManager : MonoBehaviour
         else if (num == 1)
         {
             //移動可能な駒の探索
-            //1,動かす駒を選ぶ
-            //2,移動するマスを選ぶ
-            _checkBoard = _select.SelectedPiece == null ?
-                          _stones.MovableStones(_board, _turn) :
-                          _stones.MovablePositions(_board, _select.SelectedPiece);
+            if (_select.SelectedPiece == null)
+            {
+                //1,動かす駒を選ぶ
+                _checkBoard = _stones.MovableStones(_board, _turn);
+            }
+            else
+            {
+                //2,移動するマスを選ぶ
+                _checkBoard = _stones.MovablePositions(_board, _select.SelectedPiece);
+                num = 0;
+            }
         }
 
         for (int i = 0; i < 5; i++)

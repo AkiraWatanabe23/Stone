@@ -97,66 +97,70 @@ public class PlayableStones
 
                 for (int j = 0; j < 3; j++)
                 {
-                    if (i == 1)
+                    if (j == 1)
                         z++;
-                    else if (i == 2)
+                    else if (j == 2)
                         z -= 2;
 
+                    Debug.Log($"{x}, {z}");
                     if (current[x][z] == 0)
                         checking[x][z] = 1;
                 }
-                x += 2;
-                z += 2;
+                z++;
             }
         }
         else
         {
             //駒が端のラインにある場合
-            //1,角にある場合
             if (x == 0)
             {
+                //左端
                 for (int i = 0; i < 2; i++)
                 {
                     if (i == 1)
                         x++;
 
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 3; j++)
                     {
-                        if (z == 0)
-                        {
-                            //左下
-                            if (j == 1)
-                                z++;
-                        }
-                        else
-                        {
-                            //左上
-                            if (j == 1)
-                                z--;
-                        }
+                        if (j == 1)
+                            z++;
+                        else if (j == 2)
+                            z -= 2;
 
-                        if (current[x][z] == 0)
-                            checking[x][z] = 1;
+                        if (0 <= z && z < current.Count)
+                        {
+                            if (current[x][z] == 0)
+                                checking[x][z] = 1;
+                        }
                     }
+                    z++;
                 }
             }
             else if (x == 4)
             {
+                //右端
                 for (int i = 0; i < 2; i++)
                 {
+                    if (i == 1)
+                        x--;
 
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (j == 1)
+                            z++;
+                        else if (j == 2)
+                            z -= 2;
+
+                        if (0 <= z && z < current.Count)
+                        {
+                            if (current[x][z] == 0)
+                                checking[x][z] = 1;
+                        }
+                    }
+                    z++;
                 }
             }
-            //2,そうでない場合
-            else
-            {
-
-            }
         }
-
-
         return checking;
-        //移動可...1
-        //不可　...0
     }
 }
