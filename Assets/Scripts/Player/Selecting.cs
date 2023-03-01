@@ -9,9 +9,11 @@ public class Selecting : MonoBehaviour
     /// <summary> マスを選択するときのVector </summary>
     private Vector3 _stonePos = Vector3.zero;
     private GameManager _manager = default;
+    private GameObject _selectedPiece = default;
     private readonly StoneSelect _stone = new();
     private readonly PieceSelect _piece = new();
 
+    public GameObject SelectedPiece { get => _selectedPiece; protected set => _selectedPiece = value; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
     public bool IsSelect { get; protected set; }
@@ -33,8 +35,14 @@ public class Selecting : MonoBehaviour
             }
             else if (_manager.Move == MoveType.MOVE)
             {
-                SelectPiece();
-                MovePiece();
+                if (_selectedPiece == null)
+                {
+                    SelectPiece();
+                }
+                else
+                {
+                    MovePiece();
+                }
             }
         }
     }
@@ -80,7 +88,12 @@ public class Selecting : MonoBehaviour
     /// <summary> 動かす駒を選ぶ（動かせる駒は探索済） </summary>
     private void SelectPiece()
     {
-        if (IsMovable)
+        if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
+        {
+            _selectedPiece = _manager.Turn == Turns.WHITE ?
+                             _manager.White[_index] : _manager.Black[_index];
+        }
+        else if (IsMovable)
         {
             Debug.Log("選択中..");
             _index =
@@ -93,7 +106,40 @@ public class Selecting : MonoBehaviour
     /// <summary> 選んだ駒を移動させる </summary>
     private void MovePiece()
     {
-        //TODO：駒の移動範囲の探索、描画（他のクラスでもいいかも）
+        //TODO：選んだ駒を指定したマスに移動させて、盤面情報を更新する
+        if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
+        {
+            if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
+            {
+                //var piece = Instantiate(
+                //    player, new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z), Quaternion.identity);
+                //if (_manager.Turn == Turns.WHITE)
+                //{
+                //    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 1;
+                //    _manager.White.Add(piece);
+                //}
+                //else
+                //{
+                //    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = -1;
+                //    _manager.Black.Add(piece);
+                //}
+
+                Debug.Log("駒を移動しました");
+                IsSwitch = true;
+                IsMovable = false;
+            }
+            else
+            {
+                Debug.Log("このマスには置けないです");
+            }
+            IsSelect = false;
+        }
+        else if (IsMovable)
+        {
+            _stonePos = _stone.Select(Input.inputString, _stonePos);
+            if (!IsSelect)
+                IsSelect = true;
+        }
     }
 
     /// <summary> ボードのリセット </summary>

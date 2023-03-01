@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
         load.Init();
         _board = load.Board;
         Selecting = _selecting[0];
+        White = new();
+        Black = new();
 
         for (int i = 0; i < 5; i++)
         {
@@ -125,8 +127,10 @@ public class GameManager : MonoBehaviour
         {
             //移動可能な駒の探索
             //1,動かす駒を選ぶ
-            _checkBoard = _stones.MovableStones(_board, _turn);
             //2,移動するマスを選ぶ
+            _checkBoard = _select.SelectedPiece == null ?
+                          _stones.MovableStones(_board, _turn) :
+                          _stones.MovablePositions(_board, _select.SelectedPiece);
         }
 
         for (int i = 0; i < 5; i++)

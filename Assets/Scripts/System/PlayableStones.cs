@@ -84,39 +84,14 @@ public class PlayableStones
         var x = piece.transform.position.x;
         var z = piece.transform.position.z;
 
-        if (x == 0)
+        if (1 <= x && x <= 3 &&
+            1 <= z && z <= 3)
         {
-            if (z == 0)
-            {
-
-            }
-            else if (z == 4)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-        else if (x == 4)
-        {
-            if (z == 0)
-            {
-
-            }
-            else if (z == 4)
-            {
-
-            }
-            else
-            {
-
-            }
+            //全方向の探索を行う場合
         }
         else
         {
-
+            //駒が端のラインにある場合
         }
 
 

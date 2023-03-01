@@ -47,10 +47,21 @@ public class StoneSelect
         //Materialの描画
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
-            if (_manager.CheckBoard[(int)pos.x][(int)pos.z] == 1)
-                mat = _default[2];
-            else
-                mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
+            if (_manager.Move == MoveType.SET)
+            {
+                if (_manager.CheckBoard[(int)pos.x][(int)pos.z] == 1)
+                    mat = _default[2];
+                else
+                    mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
+            }
+            else if (_manager.Move == MoveType.MOVE)
+            {
+                if (_manager.CheckBoard[(int)pos.x][(int)pos.z] == 1)
+                    mat = _default[2];
+                else
+                    mat = (int)(pos.x + pos.z) % 2 == 0 ? _default[0] : _default[1];
+            }
+
         }
         stone.GetComponent<MeshRenderer>().material = mat;
 
