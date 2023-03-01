@@ -114,11 +114,12 @@ public class Selecting : MonoBehaviour
             if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
             {
                 var pos = _selectedPiece.transform.position;
+                _manager.Board[(int)pos.x][(int)pos.z] = 0;
+
                 pos.x = _stonePos.x;
                 pos.z = _stonePos.z;
                 _selectedPiece.transform.position = pos;
-                //盤面情報の更新↓
-                _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 0;
+
                 _manager.Board[(int)pos.x][(int)pos.z] =
                     _manager.Turn == Turns.WHITE ? 1 : -1;
 
