@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: bec217fa2d430434c9d9e077e54b700a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - aoharu-marker-mini
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: fd12147ecbdf7fc4cb55590b6969f6d3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
