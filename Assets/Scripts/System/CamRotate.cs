@@ -20,11 +20,19 @@ public class CamRotate : MonoBehaviour
 
             transform.RotateAround(_pos, Vector3.up, angleX);
         }
-    }
 
-    public void RotX(float value)
-    {
-        StartCoroutine(VerRotate(value));
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartCoroutine(VerRotate(30f));
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            StartCoroutine(VerRotate(60f));
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(VerRotate(90f));
+        }
     }
 
     private IEnumerator VerRotate(float value)
