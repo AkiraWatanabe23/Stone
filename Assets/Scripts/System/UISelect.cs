@@ -6,7 +6,6 @@ using UnityEngine.UI;
 /// </summary>
 public class UISelect : MonoBehaviour
 {
-    [SerializeField] private Image _setting = default;
     [SerializeField] private Selectable _startElement = default;
 
     private Selectable _currentElement = default;
@@ -22,11 +21,6 @@ public class UISelect : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _setting.gameObject.SetActive(!_setting.gameObject.activeSelf);
-        }
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (_currentElement != null)

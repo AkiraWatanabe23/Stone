@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// 指定したシーンに遷移する
 /// </summary>
-public class SceneLoaders : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     [Tooltip("遷移先のシーン")]
     [SerializeField] private SceneNames _nextScene = default;
