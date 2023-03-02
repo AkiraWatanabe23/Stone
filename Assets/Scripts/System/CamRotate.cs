@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// ゲーム中にカメラを回転させる
@@ -8,15 +9,14 @@ public class CamRotate : MonoBehaviour
     [Tooltip("カメラの回転の基準となる座標")]
     [SerializeField] private Vector3 _pos = new(0, 0, 0);
     [Tooltip("回転速度")]
-    [SerializeField] private float _rotateSpeed = 1f;
+    [SerializeField] private Vector2 _rotateSpeed = Vector2.zero;
 
     private void Update()
     {
         //他のArrowキーを使う場合と区別するため、LeftShiftを押しながらにする
-        //（回転に制限をつけた方が良さそう）
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            float angleX = Input.GetAxis("Horizontal") * _rotateSpeed;
+            float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x * 0.1f;
 
             transform.RotateAround(_pos, Vector3.up, angleX);
         }
@@ -24,7 +24,34 @@ public class CamRotate : MonoBehaviour
 
     public void RotX(float value)
     {
-        //TODO：この部分に制限をつける必要有
-        transform.RotateAround(_pos, Vector3.right, value);
+        StartCoroutine(VerRotate(value));
+    }
+
+    private IEnumerator VerRotate(float value)
+    {
+        float x = Mathf.Round(transform.localEulerAngles.x);
+        float upValue = 0f;
+        float rotLimit = Mathf.Abs(x - value) > 30 ? 60f : 30f;
+
+        if (x < value)
+        {
+            do
+            {
+                transform.RotateAround(_pos, Vector3.right, Time.deltaTime * _rotateSpeed.y);
+                upValue += Time.deltaTime * _rotateSpeed.y;
+                yield return null;
+            }
+            while (upValue < rotLimit);
+        }
+        else if (x > value)
+        {
+            do
+            {
+                transform.RotateAround(_pos, Vector3.right, Time.deltaTime * (-_rotateSpeed.y));
+                upValue += Time.deltaTime * _rotateSpeed.y;
+                yield return null;
+            }
+            while (upValue < rotLimit);
+        }
     }
 }
