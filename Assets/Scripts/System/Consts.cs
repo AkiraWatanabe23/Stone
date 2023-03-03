@@ -6,6 +6,7 @@ namespace Constants
 {
     public static class Consts
     {
+        public const int PIECE_LIMIT = 5;
         //各プレイヤーの持ち時間（仮：要らないかも）
         public const float GAME_TIME_ONE = 100f;
         public const float GAME_TIME_TWO = 100f;

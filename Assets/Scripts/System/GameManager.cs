@@ -1,6 +1,5 @@
 ﻿using Constants;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +26,8 @@ public class GameManager : MonoBehaviour
     public MoveType Move { get; protected set; }
     public List<GameObject> White { get; set; }
     public List<GameObject> Black { get; set; }
+    public int WhiteCount { get; set; }
+    public int BlackCount { get; set; }
 
     private void Start()
     {
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
 
         _turn = Turns.WHITE;
         Player = _players[0];
+        WhiteCount = 0;
+        BlackCount = 0;
     }
 
     private void Update()
@@ -68,9 +71,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// ターン切り替え時に呼び出す
-    /// </summary>
+    /// <summary> ターン切り替え時に呼び出す </summary>
     private void SwitchTurn()
     {
         //判定用のListをリセット
@@ -95,14 +96,31 @@ public class GameManager : MonoBehaviour
         _uiManager.MoveSelect.gameObject.SetActive(true);
     }
 
-    /// <summary>
-    /// 行動選択(UIで呼び出す)
-    /// </summary>
+    /// <summary> 行動選択(UIで呼び出す) </summary>
     public void PlayerMovement(int num)
     {
         switch (num)
         {
             case 1:
+                if (_turn == Turns.WHITE)
+                {
+                    if (WhiteCount == Consts.PIECE_LIMIT)
+                    {
+                        Debug.Log("これ以上駒を配置できません");
+                        _uiManager.MoveSelect.gameObject.SetActive(true);
+                        break;
+                    }
+                }
+                else
+                {
+                    if (BlackCount == Consts.PIECE_LIMIT)
+                    {
+                        Debug.Log("これ以上駒を配置できません");
+                        _uiManager.MoveSelect.gameObject.SetActive(true);
+                        break;
+                    }
+                }
+
                 Move = MoveType.SET;
                 Movement(0);
                 break;
@@ -166,5 +184,22 @@ public class GameManager : MonoBehaviour
             return false;
         }
         return _select.IsMovable;
+    }
+
+    /// <summary> 駒を配置して、盤面情報を更新する </summary>
+    public void PieceSetting(GameObject piece, Vector3 pos)
+    {
+        if (_turn == Turns.WHITE)
+        {
+            Board[(int)pos.x][(int)pos.z] = 1;
+            White.Add(piece);
+            WhiteCount++;
+        }
+        else if (_turn == Turns.BLACK)
+        {
+            Board[(int)pos.x][(int)pos.z] = -1;
+            Black.Add(piece);
+            BlackCount++;
+        }
     }
 }

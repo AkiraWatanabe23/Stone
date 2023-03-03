@@ -57,16 +57,7 @@ public class Selecting : MonoBehaviour
             {
                 var piece = Instantiate(
                     player, new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z), Quaternion.identity);
-                if (_manager.Turn == Turns.WHITE)
-                {
-                    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = 1;
-                    _manager.White.Add(piece);
-                }
-                else
-                {
-                    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] = -1;
-                    _manager.Black.Add(piece);
-                }
+                _manager.PieceSetting(piece, _stonePos);
 
                 Debug.Log("駒を配置しました");
                 IsSwitch = true;
