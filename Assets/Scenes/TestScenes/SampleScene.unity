@@ -1373,13 +1373,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885058c5ed9ff3243a9b92c96fc5c27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turn: 0
   _states:
   - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
   - {fileID: 2100000, guid: 6f120d8eb109a4d4b9ad8701393c5086, type: 2}
   _players:
   - {fileID: 2417456842968965468, guid: c4e41d78d1418a64cbed528f11715669, type: 3}
   - {fileID: 3968282573149140767, guid: 8688efdaac2d42c47a4e53dcd725e78e, type: 3}
+  _enhancementPlayers:
+  - {fileID: 7283425460768063737, guid: 9a2fd6e4db8cf574a8a1abb2877e8a63, type: 3}
+  - {fileID: 3263387325011814552, guid: ce538da66839d9d4099587f9bd2889ec, type: 3}
   _boardStone:
   - {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
   - {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}

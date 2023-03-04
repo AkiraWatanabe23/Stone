@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Material[] _states = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
+    [SerializeField] private GameObject[] _enhancementPlayers = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
 
     private Turns _turn = Turns.WHITE;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public List<int[]> Board { get => _board; set => _board = value; }
     public List<int[]> CheckBoard { get => _checkBoard; protected set => _checkBoard = value; }
     public GameObject Player { get; protected set; }
+    public GameObject EnhancementPlayer { get; protected set; }
     public Material Selecting { get; protected set; }
     public MoveType Move { get; protected set; }
     public List<GameObject> White { get; set; }
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
             _checkBoard.Add(new int[] { 0, 0, 0, 0, 0 });
         }
         Player = _players[0];
+        EnhancementPlayer = _enhancementPlayers[0];
     }
 
     private void Update()
@@ -74,12 +77,14 @@ public class GameManager : MonoBehaviour
             {
                 Selecting = _select.PieceCol[1];
                 Player = _players[1];
+                EnhancementPlayer = _enhancementPlayers[1];
                 _turn = Turns.BLACK;
             }
             else
             {
                 Selecting = _select.PieceCol[0];
                 Player = _players[0];
+                EnhancementPlayer = _enhancementPlayers[0];
                 _turn = Turns.WHITE;
             }
             Move = MoveType.DEFAULT;

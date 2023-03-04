@@ -73,7 +73,7 @@ public class PlayableStones
         //1, ☑自分の周辺が0
 
         //駒の強化
-        //2, □　　　　　　1 or -1（&& 自分が 1 or -1）
+        //2, ☑　　　　　　1 or -1（&& 自分が 1 or -1）
 
         //駒を奪う場合
         //3, ☑自分の周辺が敵駒 && その敵駒が自分より弱い
@@ -120,7 +120,8 @@ public class PlayableStones
                         }
                         //自分と移動先の駒が味方同士でかつ弱い駒（1）だったら移動して強化できる
                         if (current[x][z] == 1 &&
-                            current[checkX][checkZ] == 1)
+                            current[checkX][checkZ] == 1 &&
+                            x != checkX && z != checkZ)
                         {
                             checking[checkX][checkZ] = 1;
                         }
@@ -134,7 +135,8 @@ public class PlayableStones
                         }
 
                         if (current[x][z] == -1 &&
-                            current[checkX][checkZ] == -1)
+                            current[checkX][checkZ] == -1 &&
+                            x != checkX && z != checkZ)
                         {
                             checking[checkX][checkZ] = 1;
                         }
@@ -199,9 +201,16 @@ public class PlayableStones
                     //奪える駒の判定
                     if (turn == Turns.WHITE)
                     {
-                        //そのマスに敵駒がいて、自分より弱い駒なら
+                        //そのマスに敵駒がいて、自分より弱い駒なら奪える
                         if (current[checkX][checkZ] < 0 &&
                             current[x][z] >= Mathf.Abs(current[checkX][checkZ]))
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+                        //自分と移動先の駒が味方同士でかつ弱い駒（1）だったら移動して強化できる
+                        if (current[x][z] == 1 &&
+                            current[checkX][checkZ] == 1 &&
+                            x != checkX && z != checkZ)
                         {
                             checking[checkX][checkZ] = 1;
                         }
@@ -210,6 +219,13 @@ public class PlayableStones
                     {
                         if (current[checkX][checkZ] > 0 &&
                             Mathf.Abs(current[x][z]) >= current[checkX][checkZ])
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+
+                        if (current[x][z] == -1 &&
+                            current[checkX][checkZ] == -1 &&
+                            x != checkX && z != checkZ)
                         {
                             checking[checkX][checkZ] = 1;
                         }

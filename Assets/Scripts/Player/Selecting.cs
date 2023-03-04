@@ -83,7 +83,7 @@ public class Selecting : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
             SelectedPiece = _manager.Turn == Turns.WHITE ?
-                             _manager.White[_index] : _manager.Black[_index];
+                            _manager.White[_index] : _manager.Black[_index];
             _manager.Movement(1);
         }
         else if (IsMovable)
@@ -109,9 +109,23 @@ public class Selecting : MonoBehaviour
                 if (_manager.Board[(int)pos.x][(int)pos.z] *
                     _manager.Board[(int)_stonePos.x][(int)_stonePos.z] < 0)
                 {
-                    Debug.Log("破壊");
+                    Debug.Log("敵駒を奪った");
                     Destroy(Consts.FindWithVector(new Vector3(pos.x, 1f, pos.z)));
                     _manager.CountDown(pos);
+                }
+                //移動して駒の強化が発生した場合、元のオブジェクトを破壊し、差し替える
+                if (_manager.Board[(int)pos.x][(int)pos.z] ==
+                    _manager.Board[(int)_stonePos.x][(int)_stonePos.z])
+                {
+                    Destroy(Consts.FindWithVector(
+                        new Vector3(pos.x, 1f, pos.z)));
+                    Destroy(Consts.FindWithVector(
+                        new Vector3(_stonePos.x, 1f, _stonePos.z)));
+                    Instantiate(
+                        _manager.EnhancementPlayer,
+                        new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z),
+                        Quaternion.identity);
+                    Debug.Log("強化");
                 }
 
                 _manager.Board[(int)pos.x][(int)pos.z] = 0;
