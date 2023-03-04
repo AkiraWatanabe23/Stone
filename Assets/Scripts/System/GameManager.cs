@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Turns _turn = default;
     [SerializeField] private Material[] _states = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
 
+    private Turns _turn = Turns.WHITE;
     /// <summary> 盤面を数値で表現したもの </summary>
     private List<int[]> _board = new();
     /// <summary> 駒の配置、移動の際に使う判定用のList </summary>
@@ -48,8 +48,6 @@ public class GameManager : MonoBehaviour
         {
             _checkBoard.Add(new int[] { 0, 0, 0, 0, 0 });
         }
-
-        _turn = Turns.WHITE;
         Player = _players[0];
     }
 
@@ -65,33 +63,28 @@ public class GameManager : MonoBehaviour
 
             _select.BoardFresh();
             _select.PieceFresh();
-            SwitchTurn();
-        }
-    }
 
-    /// <summary> ターン切り替え時に呼び出す </summary>
-    private void SwitchTurn()
-    {
-        //判定用のListをリセット
-        for (int i = 0; i < 5; i++)
-        {
-            _checkBoard[i] = new int[] { 0, 0, 0, 0, 0 };
-        }
+            //判定用のListをリセット
+            for (int i = 0; i < 5; i++)
+            {
+                _checkBoard[i] = new int[] { 0, 0, 0, 0, 0 };
+            }
 
-        if (_turn == Turns.WHITE)
-        {
-            Selecting = _select.PieceCol[1];
-            Player = _players[1];
-            _turn = Turns.BLACK;
+            if (_turn == Turns.WHITE)
+            {
+                Selecting = _select.PieceCol[1];
+                Player = _players[1];
+                _turn = Turns.BLACK;
+            }
+            else
+            {
+                Selecting = _select.PieceCol[0];
+                Player = _players[0];
+                _turn = Turns.WHITE;
+            }
+            Move = MoveType.DEFAULT;
+            _uiManager.MoveSelect.gameObject.SetActive(true);
         }
-        else
-        {
-            Selecting = _select.PieceCol[0];
-            Player = _players[0];
-            _turn = Turns.WHITE;
-        }
-        Move = MoveType.DEFAULT;
-        _uiManager.MoveSelect.gameObject.SetActive(true);
     }
 
     /// <summary> 行動選択(UIで呼び出す) </summary>
@@ -152,7 +145,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 //2,移動するマスを選ぶ
-                _checkBoard = _stones.MovablePositions(_board, _select.SelectedPiece);
+                _checkBoard = _stones.MovablePositions(_board, _select.SelectedPiece, _turn);
                 num = 0;
             }
         }
@@ -196,5 +189,15 @@ public class GameManager : MonoBehaviour
             _blackCount++;
             Black.Add(piece);
         }
+    }
+
+    public void CountDown(Vector3 pos)
+    {
+        if (_turn == Turns.WHITE)
+            _whiteCount -=
+                _board[(int)pos.x][(int)pos.z];
+        else if (_turn == Turns.BLACK)
+            _blackCount -=
+                _board[(int)pos.x][(int)pos.z];
     }
 }

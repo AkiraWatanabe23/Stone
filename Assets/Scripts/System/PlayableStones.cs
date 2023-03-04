@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// マスの判定(判定用のリストをつくり、判定して返す)
-/// </summary>
+/// <summary> マスの判定(判定用のリストをつくり、判定して返す) </summary>
 [System.Serializable]
 public class PlayableStones
 {
@@ -69,13 +67,17 @@ public class PlayableStones
 
     /// <summary> 移動可能なマスの判定
     ///           移動可→1,不可→0 </summary>
-    public List<int[]> MovablePositions(List<int[]> current, GameObject piece)
+    public List<int[]> MovablePositions(List<int[]> current, GameObject piece, Turns turn)
     {
-        //駒の移動範囲の条件
-        //1, 自分の周辺が0
-        //2, 　　　　　　1 or -1
-        //3, 　　　　　にいるものと符号が同じ(2 or -2)
-        
+        //駒が移動する場合
+        //1, ☑自分の周辺が0
+
+        //駒の強化
+        //2, □　　　　　　1 or -1（&& 自分が 1 or -1）
+
+        //駒を奪う場合
+        //3, ☑自分の周辺が敵駒 && その敵駒が自分より弱い
+
         List<int[]> checking = new();
         for (int i = 0; i < 5; i++)
         {
@@ -83,6 +85,8 @@ public class PlayableStones
         }
         var x = (int)piece.transform.position.x;
         var z = (int)piece.transform.position.z;
+        var checkX = x;
+        var checkZ = z;
 
         if (1 <= x && x <= 3 &&
             1 <= z && z <= 3)
@@ -91,83 +95,130 @@ public class PlayableStones
             for (int i = 0; i < 3; i++)
             {
                 if (i == 1)
-                    x++;
+                    checkX++;
                 else if (i == 2)
-                    x -= 2;
+                    checkX -= 2;
 
                 for (int j = 0; j < 3; j++)
                 {
                     if (j == 1)
-                        z++;
+                        checkZ++;
                     else if (j == 2)
-                        z -= 2;
+                        checkZ -= 2;
 
-                    if (current[x][z] == 0)
-                        checking[x][z] = 1;
+                    if (current[checkX][checkZ] == 0)
+                        checking[checkX][checkZ] = 1;
+
+                    //奪える駒の判定、駒の強化判定
+                    if (turn == Turns.WHITE)
+                    {
+                        //そのマスに敵駒がいて、自分より弱い駒なら奪える
+                        if (current[checkX][checkZ] < 0 &&
+                            current[x][z] >= Mathf.Abs(current[checkX][checkZ]))
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+                        //自分と移動先の駒が味方同士でかつ弱い駒（1）だったら移動して強化できる
+                        if (current[x][z] == 1 &&
+                            current[checkX][checkZ] == 1)
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+                    }
+                    else if (turn == Turns.BLACK)
+                    {
+                        if (current[checkX][checkZ] > 0 &&
+                            Mathf.Abs(current[x][z]) >= current[checkX][checkZ])
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+
+                        if (current[x][z] == -1 &&
+                            current[checkX][checkZ] == -1)
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+                    }
                 }
-                z++;
+                checkZ++;
             }
         }
         else
         {
-            //駒が端のラインにある場合
+            bool isHol = false;
+
             if (x == 0 || x == 4)
+                isHol = true;
+            else if (z == 0 || z == 4)
+                isHol = false;
+
+            //駒が端のラインにある場合
+            for (int i = 0; i < 2; i++)
             {
-                //左端、右端
-                for (int i = 0; i < 2; i++)
+                if (i == 1)
                 {
-                    if (i == 1)
+                    if (isHol)
                     {
                         if (x == 0)
-                            x++;
+                            checkX++;
                         else if (x == 4)
-                            x--;
+                            checkX--;
                     }
-
-                    for (int j = 0; j < 3; j++)
-                    {
-                        if (j == 1)
-                            z++;
-                        else if (j == 2)
-                            z -= 2;
-
-                        if (0 <= z && z < current.Count)
-                        {
-                            if (current[x][z] == 0)
-                                checking[x][z] = 1;
-                        }
-                    }
-                    z++;
-                }
-            }
-            else if (z == 0 || z == 4)
-            {
-                ////下段、上段
-                for (int i = 0; i < 2; i++)
-                {
-                    if (i == 1)
+                    else
                     {
                         if (z == 0)
-                            z++;
+                            checkZ++;
                         else if (z == 4)
-                            z--;
+                            checkZ--;
+                    }
+                }
+
+                for (int j = 0; j < 3; j++)
+                {
+                    if (j == 1)
+                    {
+                        if (isHol)
+                            checkZ++;
+                        else
+                            checkX++;
+                    }
+                    else if (j == 2)
+                    {
+                        if (isHol)
+                            checkZ -= 2;
+                        else
+                            checkX -= 2;
                     }
 
-                    for (int j = 0; j < 3; j++)
+                    if (0 <= z && z < current.Count)
                     {
-                        if (j == 1)
-                            x++;
-                        else if (j == 2)
-                            x -= 2;
+                        if (current[checkX][checkZ] == 0)
+                            checking[checkX][checkZ] = 1;
+                    }
 
-                        if (0 <= z && z < current.Count)
+                    //奪える駒の判定
+                    if (turn == Turns.WHITE)
+                    {
+                        //そのマスに敵駒がいて、自分より弱い駒なら
+                        if (current[checkX][checkZ] < 0 &&
+                            current[x][z] >= Mathf.Abs(current[checkX][checkZ]))
                         {
-                            if (current[x][z] == 0)
-                                checking[x][z] = 1;
+                            checking[checkX][checkZ] = 1;
                         }
                     }
-                    x++;
+                    else if (turn == Turns.BLACK)
+                    {
+                        if (current[checkX][checkZ] > 0 &&
+                            Mathf.Abs(current[x][z]) >= current[checkX][checkZ])
+                        {
+                            checking[checkX][checkZ] = 1;
+                        }
+                    }
                 }
+                if (isHol)
+                    checkZ++;
+                else
+                    checkX++;
             }
         }
         return checking;

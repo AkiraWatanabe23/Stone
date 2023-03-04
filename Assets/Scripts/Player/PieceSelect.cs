@@ -8,10 +8,10 @@ public class PieceSelect
 
     private GameManager _manager = default;
 
-    public void Start(GameManager manager, Material[] def)
+    public void Start(GameManager manager, Material[] mat)
     {
         _manager = manager;
-        _default = def;
+        _default = mat;
     }
 
     /// <summary> Playerの入力 </summary>

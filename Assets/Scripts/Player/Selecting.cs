@@ -104,6 +104,16 @@ public class Selecting : MonoBehaviour
             if (_manager.CheckBoard[(int)_stonePos.x][(int)_stonePos.z] == 1)
             {
                 var pos = SelectedPiece.transform.position;
+
+                //移動先に敵の駒があれば、それを破壊し、駒数のカウントを減らす
+                if (_manager.Board[(int)pos.x][(int)pos.z] *
+                    _manager.Board[(int)_stonePos.x][(int)_stonePos.z] < 0)
+                {
+                    Debug.Log("破壊");
+                    Destroy(Consts.FindWithVector(new Vector3(pos.x, 1f, pos.z)));
+                    _manager.CountDown(pos);
+                }
+
                 _manager.Board[(int)pos.x][(int)pos.z] = 0;
 
                 pos.x = _stonePos.x;
@@ -150,14 +160,20 @@ public class Selecting : MonoBehaviour
     {
         for (int i = 0; i < _manager.White.Count; i++)
         {
-            Consts.FindWithVector(_manager.White[i].transform.position).
-                GetComponent<MeshRenderer>().material = _pieceCol[0];
+            if (_manager.White[i] != null)
+            {
+                Consts.FindWithVector(_manager.White[i].transform.position).
+                    GetComponent<MeshRenderer>().material = _pieceCol[0];
+            }
         }
 
         for (int i = 0; i < _manager.Black.Count; i++)
         {
-            Consts.FindWithVector(_manager.Black[i].transform.position).
-                GetComponent<MeshRenderer>().material = _pieceCol[1];
+            if (_manager.Black[i] != null)
+            {
+                Consts.FindWithVector(_manager.Black[i].transform.position).
+                    GetComponent<MeshRenderer>().material = _pieceCol[1];
+            }
         }
     }
 }
