@@ -1338,7 +1338,6 @@ GameObject:
   - component: {fileID: 1248087289}
   - component: {fileID: 1248087292}
   - component: {fileID: 1248087291}
-  - component: {fileID: 1248087290}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -1385,19 +1384,6 @@ MonoBehaviour:
   _boardStone:
   - {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
   - {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
---- !u!114 &1248087290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248087286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca5fecb23232f843a9f306d1def414a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startElement: {fileID: 539431237}
 --- !u!114 &1248087291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,6 +1399,7 @@ MonoBehaviour:
   _turn: {fileID: 2129279620}
   _whichPlace: {fileID: 1434593381}
   _moveSelect: {fileID: 1561204801}
+  _startElement: {fileID: 539431237}
 --- !u!114 &1248087292
 MonoBehaviour:
   m_ObjectHideFlags: 0
