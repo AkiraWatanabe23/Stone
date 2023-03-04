@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private readonly Judgment _judge = new();
     private Selecting _select = default;
     private UIManager _uiManager = default;
+    private int _whiteCount = 0;
+    private int _blackCount = 0;
 
     public Turns Turn { get => _turn; protected set => _turn = value; }
     public List<int[]> Board { get => _board; set => _board = value; }
@@ -26,8 +28,6 @@ public class GameManager : MonoBehaviour
     public MoveType Move { get; protected set; }
     public List<GameObject> White { get; set; }
     public List<GameObject> Black { get; set; }
-    public int WhiteCount { get; set; }
-    public int BlackCount { get; set; }
 
     private void Start()
     {
@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
 
         _turn = Turns.WHITE;
         Player = _players[0];
-        WhiteCount = 0;
-        BlackCount = 0;
     }
 
     private void Update()
@@ -104,7 +102,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 if (_turn == Turns.WHITE)
                 {
-                    if (WhiteCount == Consts.PIECE_LIMIT)
+                    if (_whiteCount == Consts.PIECE_LIMIT)
                     {
                         Debug.Log("これ以上駒を配置できません");
                         _uiManager.MoveSelect.gameObject.SetActive(true);
@@ -113,7 +111,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (BlackCount == Consts.PIECE_LIMIT)
+                    if (_blackCount == Consts.PIECE_LIMIT)
                     {
                         Debug.Log("これ以上駒を配置できません");
                         _uiManager.MoveSelect.gameObject.SetActive(true);
@@ -176,13 +174,10 @@ public class GameManager : MonoBehaviour
     private bool Movable()
     {
         if (!_select.IsSelect)
-        {
             _select.IsMovable = true;
-        }
         else
-        {
             return false;
-        }
+
         return _select.IsMovable;
     }
 
@@ -191,15 +186,15 @@ public class GameManager : MonoBehaviour
     {
         if (_turn == Turns.WHITE)
         {
-            Board[(int)pos.x][(int)pos.z] = 1;
+            _board[(int)pos.x][(int)pos.z] = 1;
+            _whiteCount++;
             White.Add(piece);
-            WhiteCount++;
         }
         else if (_turn == Turns.BLACK)
         {
-            Board[(int)pos.x][(int)pos.z] = -1;
+            _board[(int)pos.x][(int)pos.z] = -1;
+            _blackCount++;
             Black.Add(piece);
-            BlackCount++;
         }
     }
 }
