@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Material _state = default;
+    [SerializeField] private Material[] _pieceCol = new Material[2];
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _enhancementPlayers = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         load.Init();
         _board = load.Board;
-        Selecting = _select.PieceCol[0];
+        Selecting = _pieceCol[0];
         White = new();
         Black = new();
 
@@ -65,8 +66,8 @@ public class GameManager : MonoBehaviour
             _select.IsSwitch = false;
 
             _select.BoardFresh();
-            _select.PieceFresh();
 
+            //↓ターン切り替え時の処理
             //判定用のListをリセット
             for (int i = 0; i < 5; i++)
             {
@@ -75,14 +76,14 @@ public class GameManager : MonoBehaviour
 
             if (_turn == Turns.WHITE)
             {
-                Selecting = _select.PieceCol[1];
+                Selecting = _pieceCol[1];
                 Player = _players[1];
                 EnhancementPlayer = _enhancementPlayers[1];
                 _turn = Turns.BLACK;
             }
             else
             {
-                Selecting = _select.PieceCol[0];
+                Selecting = _pieceCol[0];
                 Player = _players[0];
                 EnhancementPlayer = _enhancementPlayers[0];
                 _turn = Turns.WHITE;

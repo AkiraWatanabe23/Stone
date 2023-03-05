@@ -4,7 +4,6 @@ using UnityEngine;
 public class Selecting : MonoBehaviour
 {
     [SerializeField] private Material[] _default = new Material[3];
-    [SerializeField] private Material[] _pieceCol = new Material[2];
 
     private int _index = 0;
     /// <summary> マスを選択するときのVector </summary>
@@ -13,7 +12,6 @@ public class Selecting : MonoBehaviour
     private readonly StoneSelect _stone = new();
     private readonly PieceSelect _piece = new();
 
-    public Material[] PieceCol { get => _pieceCol; protected set => _pieceCol = value; }
     public GameObject SelectedPiece { get; protected set; }
     public bool IsSwitch { get; set; }
     public bool IsMovable { get; set; }
@@ -166,27 +164,6 @@ public class Selecting : MonoBehaviour
                 Consts.FindWithVector(new Vector3(i, 0, j)).
                     GetComponent<MeshRenderer>().material
                     = (i + j) % 2 == 0 ? _default[0] : _default[1];
-            }
-        }
-    }
-
-    public void PieceFresh()
-    {
-        for (int i = 0; i < _manager.White.Count; i++)
-        {
-            if (_manager.White[i] != null)
-            {
-                Consts.FindWithVector(_manager.White[i].transform.position).
-                    GetComponent<MeshRenderer>().material = _pieceCol[0];
-            }
-        }
-
-        for (int i = 0; i < _manager.Black.Count; i++)
-        {
-            if (_manager.Black[i] != null)
-            {
-                Consts.FindWithVector(_manager.Black[i].transform.position).
-                    GetComponent<MeshRenderer>().material = _pieceCol[1];
             }
         }
     }

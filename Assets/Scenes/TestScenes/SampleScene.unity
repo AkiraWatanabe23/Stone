@@ -1373,12 +1373,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
+  _pieceCol:
+  - {fileID: 2100000, guid: e586d2a584b52d94692dee00e94a21b6, type: 2}
+  - {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
   _players:
-  - {fileID: 2417456842968965468, guid: c4e41d78d1418a64cbed528f11715669, type: 3}
-  - {fileID: 3968282573149140767, guid: 8688efdaac2d42c47a4e53dcd725e78e, type: 3}
+  - {fileID: 5431010554916073344, guid: cd3389765be4b994b9637415fcc99da6, type: 3}
+  - {fileID: 3855479959754747636, guid: c0a1d72cdfd010a47997503b2b775c76, type: 3}
   _enhancementPlayers:
-  - {fileID: 7283425460768063737, guid: 9a2fd6e4db8cf574a8a1abb2877e8a63, type: 3}
-  - {fileID: 3263387325011814552, guid: ce538da66839d9d4099587f9bd2889ec, type: 3}
+  - {fileID: 1850049044578996027, guid: e31df78b4195b1749a9e1c6e8d50bf1c, type: 3}
+  - {fileID: 3582044991102511188, guid: 2776bb6648e07394fbdb15380dbcb5dd, type: 3}
   _boardStone:
   - {fileID: 3757433555976419885, guid: 4b946b7a4d1eb6b40ae77cb2e7c10925, type: 3}
   - {fileID: 6309884197858790467, guid: 456c0436a15cf624888c1b08f7ad13a9, type: 3}
@@ -1414,9 +1417,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ced538d9959ac6141bda41189666d559, type: 2}
   - {fileID: 2100000, guid: 13af5cf25a1bf084fba24d0c05b9c778, type: 2}
   - {fileID: 2100000, guid: 3dd9c4cf6d75ed648b83949b60525ccf, type: 2}
-  _pieceCol:
-  - {fileID: 2100000, guid: e586d2a584b52d94692dee00e94a21b6, type: 2}
-  - {fileID: 2100000, guid: b1e9b55be30ad274d9a3a3ade514228d, type: 2}
 --- !u!1 &1368878795
 GameObject:
   m_ObjectHideFlags: 0
