@@ -1,6 +1,5 @@
 ﻿using Constants;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public class PieceSelect
@@ -42,11 +41,12 @@ public class PieceSelect
         {
             stonePos = _manager.Black[index].transform.position;
         }
+
         var mat = Consts.FindWithVector(new Vector3((int)stonePos.x, 0f, (int)stonePos.z)).
             GetComponent<MeshRenderer>().material;
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
-            mat = (int)(stonePos.x + stonePos.z) % 2 == 0 ? _default[0] : _default[1];
+            mat = _default[2];
         }
         Consts.FindWithVector(new Vector3((int)stonePos.x, 0f, (int)stonePos.z)).
             GetComponent<MeshRenderer>().material = mat;
@@ -55,24 +55,16 @@ public class PieceSelect
         if (_manager.Turn == Turns.WHITE)
         {
             if (index + 1 <= _manager.White.Count - 1)
-            {
                 index++;
-            }
             else
-            {
                 index = 0;
-            }
         }
         else if (_manager.Turn == Turns.BLACK)
         {
             if (index + 1 <= _manager.Black.Count - 1)
-            {
                 index++;
-            }
             else
-            {
                 index = 0;
-            }
         }
 
         if (_manager.Turn == Turns.WHITE)

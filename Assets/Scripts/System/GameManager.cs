@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Material[] _states = new Material[2];
+    [SerializeField] private Material _state = default;
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _enhancementPlayers = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
@@ -151,7 +151,6 @@ public class GameManager : MonoBehaviour
             {
                 //2,移動するマスを選ぶ
                 _checkBoard = _stones.MovablePositions(_board, _select.SelectedPiece, _turn);
-                num = 0;
             }
         }
 
@@ -161,8 +160,8 @@ public class GameManager : MonoBehaviour
             {
                 if (_checkBoard[i][j] == 1)
                 {
-                    Consts.FindWithVector(new Vector3(i, num, j)).
-                        GetComponent<MeshRenderer>().material = _states[0];
+                    Consts.FindWithVector(new Vector3(i, 0f, j)).
+                        GetComponent<MeshRenderer>().material = _state;
                 }
             }
         }
