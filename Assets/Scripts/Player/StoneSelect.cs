@@ -45,7 +45,7 @@ public class StoneSelect
         var mat = stone.GetComponent<MeshRenderer>().material;
 
         //Materialの描画
-        if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
+        if (mat.name.Contains("Orange") || mat.name.Contains("Red"))
         {
             if (_manager.Move == MoveType.SET)
             {

@@ -44,7 +44,7 @@ public class PieceSelect
 
         var mat = Consts.FindWithVector(new Vector3((int)stonePos.x, 0f, (int)stonePos.z)).
             GetComponent<MeshRenderer>().material;
-        if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
+        if (mat.name.Contains("Orange") || mat.name.Contains("Red"))
         {
             mat = _default[2];
         }
