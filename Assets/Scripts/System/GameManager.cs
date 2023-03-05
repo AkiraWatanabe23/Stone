@@ -60,9 +60,13 @@ public class GameManager : MonoBehaviour
         //判定
         if (_select.IsSwitch)
         {
-            _judge.Row(_board);
-            _judge.Column(_board);
-            _judge.Diagonal(_board);
+            if (_judge.Row(_board) != JudgeResult.DRAW ||
+                _judge.Column(_board) != JudgeResult.DRAW ||
+                _judge.Diagonal(_board) != JudgeResult.DRAW)
+            {
+                //勝利判定を行い、どちらかが勝ったらリザルトシーンに遷移
+                //TODO：演出
+            }
             _select.IsSwitch = false;
 
             _select.BoardFresh();
