@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
                 resultDiagonal != JudgeResult.DRAW)
             {
                 //勝利判定を行い、どちらかが勝ったらリザルトシーンに遷移
-                //TODO：演出
                 StartCoroutine(_staging.Winning());
             }
             _select.IsSwitch = false;
@@ -93,6 +92,9 @@ public class GameManager : MonoBehaviour
 
             if (_turn == Turns.RED)
             {
+                _uiManager.Anim[0].enabled = false;
+                _uiManager.Anim[1].enabled = true;
+
                 Selecting = _pieceCol[1];
                 Player = _players[1];
                 EnhancementPlayer = _enhancementPlayers[1];
@@ -100,6 +102,9 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                _uiManager.Anim[0].enabled = true;
+                _uiManager.Anim[1].enabled = false;
+
                 Selecting = _pieceCol[0];
                 Player = _players[0];
                 EnhancementPlayer = _enhancementPlayers[0];
