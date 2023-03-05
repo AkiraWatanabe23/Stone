@@ -8,14 +8,14 @@ public class ObjSet : MonoBehaviour
 
     private void Start()
     {
-        _turn = Turns.WHITE;
+        _turn = Turns.RED;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (_turn == Turns.WHITE)
+            if (_turn == Turns.RED)
             {
                 Instantiate(_players[0]);
                 _turn = Turns.BLACK;
@@ -24,7 +24,7 @@ public class ObjSet : MonoBehaviour
             else
             {
                 Instantiate(_players[1]);
-                _turn = Turns.WHITE;
+                _turn = Turns.RED;
                 Debug.Log("Set Black");
             }
         }

@@ -44,7 +44,7 @@ public class PlayableStones
         {
             for (int j = 0; j < 5; j++)
             {
-                if (turn == Turns.WHITE)
+                if (turn == Turns.RED)
                 {
                     if (current[i][j] == 1 ||
                         current[i][j] == 2)
@@ -110,7 +110,7 @@ public class PlayableStones
                         checking[checkX][checkZ] = 1;
 
                     //奪える駒の判定、駒の強化判定
-                    if (turn == Turns.WHITE)
+                    if (turn == Turns.RED)
                     {
                         //そのマスに敵駒がいて、自分より弱い駒なら奪える
                         if (current[checkX][checkZ] < 0 &&
@@ -199,7 +199,7 @@ public class PlayableStones
                     }
 
                     //奪える駒の判定
-                    if (turn == Turns.WHITE)
+                    if (turn == Turns.RED)
                     {
                         //そのマスに敵駒がいて、自分より弱い駒なら奪える
                         if (current[checkX][checkZ] < 0 &&

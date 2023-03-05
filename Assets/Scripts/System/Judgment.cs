@@ -15,7 +15,7 @@ public class Judgment
             string checking = string.Join(",", board[i]);
 
             if (checking == "1,1,1,1,1")
-                result = JudgeResult.WHITE_WIN;
+                result = JudgeResult.RED_WIN;
             else if (checking == "-1,-1,-1,-1,-1")
                 result = JudgeResult.BLACK_WIN;
 
@@ -52,7 +52,7 @@ public class Judgment
                 {
                     if (stone == 1)
                     {
-                        result = JudgeResult.WHITE_WIN;
+                        result = JudgeResult.RED_WIN;
                     }
                     else if (stone == -1)
                     {
@@ -100,7 +100,7 @@ public class Judgment
             {
                 if (pivot == 1)
                 {
-                    result = JudgeResult.WHITE_WIN;
+                    result = JudgeResult.RED_WIN;
                 }
                 else if (pivot == -1)
                 {

@@ -80,7 +80,7 @@ public class Selecting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && IsSelect)
         {
-            SelectedPiece = _manager.Turn == Turns.WHITE ?
+            SelectedPiece = _manager.Turn == Turns.RED ?
                             _manager.White[_index] : _manager.Black[_index];
             _manager.Movement(1);
         }
@@ -133,7 +133,7 @@ public class Selecting : MonoBehaviour
                 SelectedPiece.transform.position = pos;
 
                 _manager.Board[(int)pos.x][(int)pos.z] =
-                    _manager.Turn == Turns.WHITE ? 1 : -1;
+                    _manager.Turn == Turns.RED ? 1 : -1;
 
                 Debug.Log("駒を移動しました");
                 SelectedPiece = null;

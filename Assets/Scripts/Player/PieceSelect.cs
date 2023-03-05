@@ -33,7 +33,7 @@ public class PieceSelect
     private int SelectPiece(int index)
     {
         Vector3 stonePos = default;
-        if (_manager.Turn == Turns.WHITE)
+        if (_manager.Turn == Turns.RED)
         {
             stonePos = _manager.White[index].transform.position;
         }
@@ -52,7 +52,7 @@ public class PieceSelect
             GetComponent<MeshRenderer>().material = mat;
 
 
-        if (_manager.Turn == Turns.WHITE)
+        if (_manager.Turn == Turns.RED)
         {
             if (index + 1 <= _manager.White.Count - 1)
                 index++;
@@ -67,7 +67,7 @@ public class PieceSelect
                 index = 0;
         }
 
-        if (_manager.Turn == Turns.WHITE)
+        if (_manager.Turn == Turns.RED)
         {
             var pos = _manager.White[index].transform.position;
             Consts.FindWithVector(new Vector3((int)pos.x, 0f, (int)pos.z)).

@@ -52,7 +52,7 @@ namespace Constants
 
     public enum Turns
     {
-        WHITE,
+        RED,
         BLACK,
     }
 
@@ -66,7 +66,7 @@ namespace Constants
     public enum JudgeResult
     {
         DRAW,
-        WHITE_WIN,
+        RED_WIN,
         BLACK_WIN,
     }
 }

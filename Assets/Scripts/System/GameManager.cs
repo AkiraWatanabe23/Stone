@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _enhancementPlayers = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
 
-    private Turns _turn = Turns.WHITE;
+    private Turns _turn = Turns.RED;
     /// <summary> 盤面を数値で表現したもの </summary>
     private List<int[]> _board = new();
     /// <summary> 駒の配置、移動の際に使う判定用のList </summary>
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
                 _checkBoard[i] = new int[] { 0, 0, 0, 0, 0 };
             }
 
-            if (_turn == Turns.WHITE)
+            if (_turn == Turns.RED)
             {
                 Selecting = _pieceCol[1];
                 Player = _players[1];
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                 Selecting = _pieceCol[0];
                 Player = _players[0];
                 EnhancementPlayer = _enhancementPlayers[0];
-                _turn = Turns.WHITE;
+                _turn = Turns.RED;
             }
             Move = MoveType.DEFAULT;
             _uiManager.MoveSelect.gameObject.SetActive(true);
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         switch (num)
         {
             case 1:
-                if (_turn == Turns.WHITE)
+                if (_turn == Turns.RED)
                 {
                     if (_whiteCount == Consts.PIECE_LIMIT)
                     {
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
     /// <summary> 駒を配置して、盤面情報を更新する </summary>
     public void PieceSetting(GameObject piece, Vector3 pos)
     {
-        if (_turn == Turns.WHITE)
+        if (_turn == Turns.RED)
         {
             _board[(int)pos.x][(int)pos.z] = 1;
             _whiteCount++;
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void CountDown(Vector3 pos)
     {
-        if (_turn == Turns.WHITE)
+        if (_turn == Turns.RED)
             _whiteCount -=
                 _board[(int)pos.x][(int)pos.z];
         else if (_turn == Turns.BLACK)
