@@ -1,5 +1,6 @@
 ﻿using Constants;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public class PieceSelect
@@ -32,24 +33,24 @@ public class PieceSelect
 
     private int SelectPiece(int index)
     {
-        GameObject piece = null;
+        Vector3 stonePos = default;
         if (_manager.Turn == Turns.WHITE)
-            piece =
-                Consts.FindWithVector(_manager.White[index].transform.position);
+        {
+            stonePos = _manager.White[index].transform.position;
+        }
         else if (_manager.Turn == Turns.BLACK)
-            piece =
-                Consts.FindWithVector(_manager.Black[index].transform.position);
-        var mat = piece.GetComponent<MeshRenderer>().material;
-
+        {
+            stonePos = _manager.Black[index].transform.position;
+        }
+        var mat = Consts.FindWithVector(new Vector3((int)stonePos.x, 0f, (int)stonePos.z)).
+            GetComponent<MeshRenderer>().material;
         if (mat.name.Contains("Orange") || mat.name.Contains("Blue"))
         {
-            mat = _default[2];
+            mat = (int)(stonePos.x + stonePos.z) % 2 == 0 ? _default[0] : _default[1];
         }
-        else
-        {
-            Debug.Log(mat.name);
-        }
-        piece.GetComponent<MeshRenderer>().material = mat;
+        Consts.FindWithVector(new Vector3((int)stonePos.x, 0f, (int)stonePos.z)).
+            GetComponent<MeshRenderer>().material = mat;
+
 
         if (_manager.Turn == Turns.WHITE)
         {
@@ -75,12 +76,18 @@ public class PieceSelect
         }
 
         if (_manager.Turn == Turns.WHITE)
-            Consts.FindWithVector(_manager.White[index].transform.position).
-                GetComponent<MeshRenderer>().material = _manager.Selecting;
-        else if (_manager.Turn == Turns.BLACK)
-            Consts.FindWithVector(_manager.Black[index].transform.position).
+        {
+            var pos = _manager.White[index].transform.position;
+            Consts.FindWithVector(new Vector3((int)pos.x, 0f, (int)pos.z)).
                 GetComponent<MeshRenderer>().material = _manager.Selecting;
 
+        }
+        else if (_manager.Turn == Turns.BLACK)
+        {
+            var pos = _manager.Black[index].transform.position;
+            Consts.FindWithVector(new Vector3((int)pos.x, 0f, (int)pos.z)).
+                GetComponent<MeshRenderer>().material = _manager.Selecting;
+        }
         return index;
     }
 }
