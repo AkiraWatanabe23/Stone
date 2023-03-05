@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
 
     public Image MoveSelect { get => _moveSelect; protected set => _moveSelect = value; }
 
-    void Start()
+    private void Start()
     {
         _manager = GetComponent<GameManager>();
         _moveSelect.gameObject.SetActive(true);

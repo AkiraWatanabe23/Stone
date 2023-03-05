@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] _players = new GameObject[2];
     [SerializeField] private GameObject[] _enhancementPlayers = new GameObject[2];
     [SerializeField] private GameObject[] _boardStone = new GameObject[2];
+    [SerializeField] private WinningStaging _staging = new();
 
     private Turns _turn = Turns.RED;
     /// <summary> 盤面を数値で表現したもの </summary>
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
         load.Stone[0] = _boardStone[0];
         load.Stone[1] = _boardStone[1];
 
+        _staging.Start();
         load.Init();
         _board = load.Board;
         Selecting = _pieceCol[0];
@@ -57,15 +59,26 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //test
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCoroutine(_staging.Winning());
+        }
+
         //判定
         if (_select.IsSwitch)
         {
-            if (_judge.Row(_board) != JudgeResult.DRAW ||
-                _judge.Column(_board) != JudgeResult.DRAW ||
-                _judge.Diagonal(_board) != JudgeResult.DRAW)
+            var resultRow = _judge.Row(_board);
+            var resultColumn = _judge.Column(_board);
+            var resultDiagonal = _judge.Diagonal(_board);
+
+            if (resultRow != JudgeResult.DRAW ||
+                resultColumn != JudgeResult.DRAW ||
+                resultDiagonal != JudgeResult.DRAW)
             {
                 //勝利判定を行い、どちらかが勝ったらリザルトシーンに遷移
                 //TODO：演出
+                StartCoroutine(_staging.Winning());
             }
             _select.IsSwitch = false;
 
