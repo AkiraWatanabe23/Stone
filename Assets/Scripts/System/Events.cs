@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GameStart : MonoBehaviour
+public class Events : MonoBehaviour
 {
     [SerializeField] private UnityEvent _startEvent = default;
     [SerializeField] private UnityEvent _closeEvent = default;
