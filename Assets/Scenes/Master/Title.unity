@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.25330302, g: 0.21698889, b: 0.23319246, a: 1}
+  m_IndirectSpecularColor: {r: 0.25324398, g: 0.21693912, b: 0.2331742, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 341762830}
   - component: {fileID: 341762829}
   - component: {fileID: 341762828}
-  - component: {fileID: 341762831}
+  - component: {fileID: 341762832}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -208,7 +208,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &341762831
+--- !u!114 &341762832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,12 +217,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 341762827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224e8de51d3e3244e8ae8f010d688108, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c1bc0a3f7ff26146a0976ca92c3ce78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotateX: 0
-  _rotateY: 5
-  _rotateZ: 0
+  _rotateSpeed: 0.025
 --- !u!1 &389458069
 GameObject:
   m_ObjectHideFlags: 0
