@@ -10,8 +10,6 @@ public class WinningStaging
     [SerializeField] private Image _clear = default;
     [SerializeField] private UnityEvent _clearEvent = default;
 
-    private GameManager _test = default;
-
     public void Start()
     {
         _clear.gameObject.SetActive(false);

@@ -7,8 +7,8 @@ public class Selecting : MonoBehaviour
     [Tooltip("オブジェクト生成時のSE")]
     [SerializeField] private AudioClip _setSound = default;
 
-    private AudioSource _source = default;
     private int _index = 0;
+    private AudioSource _source = default;
     /// <summary> マスを選択するときのVector </summary>
     private Vector3 _stonePos = Vector3.zero;
     private GameManager _manager = default;

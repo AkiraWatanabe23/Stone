@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     public Text Winning { get => _winning; set => _winning = value; }
     public Image MoveSelect { get => _moveSelect; protected set => _moveSelect = value; }
-    public Animator[] Anim { get => _anim; set => _anim = value; }
+    public Animator[] Anim { get => _anim; protected set => _anim = value; }
 
     private void Start()
     {
