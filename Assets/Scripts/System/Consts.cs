@@ -8,13 +8,6 @@ namespace Constants
     {
         //各プレイヤーの駒の配置制限個数
         public const int PIECE_LIMIT = 5;
-        //各プレイヤーの持ち時間（仮：要らないかも）
-        public const float GAME_TIME_ONE = 100f;
-        public const float GAME_TIME_TWO = 100f;
-
-        public const string STONE_TAG = "Stone";
-        public const string PLAYER_ONE_TAG = "PlayerWhite";
-        public const string PLAYER_TWO_TAG = "PlayerBlack";
 
         public static readonly Dictionary<SceneNames, string> Scenes = new()
         {
