@@ -4,7 +4,10 @@ using UnityEngine;
 public class Selecting : MonoBehaviour
 {
     [SerializeField] private Material[] _default = new Material[3];
+    [Tooltip("オブジェクト生成時のSE")]
+    [SerializeField] private AudioClip _setSound = default;
 
+    private AudioSource _source = default;
     private int _index = 0;
     /// <summary> マスを選択するときのVector </summary>
     private Vector3 _stonePos = Vector3.zero;
@@ -19,6 +22,7 @@ public class Selecting : MonoBehaviour
 
     private void Start()
     {
+        _source = GetComponent<AudioSource>();
         _manager = GetComponent<GameManager>();
         _stone.Start(_manager, _default);
         _piece.Start(_manager, _default);
@@ -55,6 +59,7 @@ public class Selecting : MonoBehaviour
             {
                 var piece = Instantiate(
                     player, new Vector3((int)_stonePos.x, 1f, (int)_stonePos.z), Quaternion.identity);
+                _source.PlayOneShot(_setSound);
                 _manager.PieceSetting(piece, _stonePos);
 
                 Debug.Log("駒を配置しました");

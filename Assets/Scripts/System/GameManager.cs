@@ -59,12 +59,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //test
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(_staging.Winning());
-        }
-
         //判定
         if (_select.IsSwitch)
         {
