@@ -16,7 +16,7 @@ public class LoadData
     public List<int[]> Board { get => _board; protected set => _board = value; }
     public GameObject[] Stone => _stone;
 
-    public void Init()
+    public void Start()
     {
         LoadCsv();
         BoardSet();

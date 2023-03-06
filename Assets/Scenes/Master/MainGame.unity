@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.25323683, g: 0.21695864, b: 0.2331489, a: 1}
+  m_IndirectSpecularColor: {r: 0.2532116, g: 0.21694703, b: 0.2331789, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,17 +157,67 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 233417376, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -450
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
       propertyPath: m_Text
-      value: "\u3069\u3063\u3061\u304C\u304B\u3063\u305F\u304B"
+      value: 'Click shift to
+
+        return TitleScene'
       objectReference: {fileID: 0}
-    - target: {fileID: 1322008007, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: fd12147ecbdf7fc4cb55590b6969f6d3, type: 3}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_MinSize
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2052486585, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6532375797694777819, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -621,9 +671,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1486673528}
     - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
       propertyPath: _closeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 611190143}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1685129268}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadToScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1505707056227741666, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _toTitleEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7097235710833900432, guid: adad23296435b10429546285ec1e4919, type: 3}
       propertyPath: _startElement
       value: 
@@ -714,6 +792,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adad23296435b10429546285ec1e4919, type: 3}
+--- !u!114 &1685129268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1685129269, guid: adad23296435b10429546285ec1e4919, type: 3}
+  m_PrefabInstance: {fileID: 1685129267}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32b10c83e7278f49bc2cd690f69390c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769318112
 GameObject:
   m_ObjectHideFlags: 0

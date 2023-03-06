@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         load.Stone[1] = _boardStone[1];
 
         _staging.Start();
-        load.Init();
+        load.Start();
         _board = load.Board;
         Selecting = _pieceCol[0];
         White = new();
