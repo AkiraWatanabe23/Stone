@@ -6,12 +6,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text[] _turns = new Text[2];
     [SerializeField] private GameObject[] _thisTurn = new GameObject[2];
     [SerializeField] private Text _whichPlace = default;
+    [SerializeField] private Text _winning = default;
     [SerializeField] private Image _moveSelect = default;
     [SerializeField] private Image _helpImage = default;
 
     private GameManager _manager = default;
     private Animator[] _anim = new Animator[2];
 
+    public Text Winning { get => _winning; set => _winning = value; }
     public Image MoveSelect { get => _moveSelect; protected set => _moveSelect = value; }
     public Animator[] Anim { get => _anim; set => _anim = value; }
 

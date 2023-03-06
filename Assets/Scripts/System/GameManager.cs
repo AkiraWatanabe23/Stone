@@ -72,11 +72,23 @@ public class GameManager : MonoBehaviour
             var resultColumn = _judge.Column(_board);
             var resultDiagonal = _judge.Diagonal(_board);
 
+            //勝利判定を行い、どちらかが勝ったら勝利演出
             if (resultRow != JudgeResult.DRAW ||
                 resultColumn != JudgeResult.DRAW ||
                 resultDiagonal != JudgeResult.DRAW)
             {
-                //勝利判定を行い、どちらかが勝ったらリザルトシーンに遷移
+                if (resultRow == JudgeResult.RED_WIN ||
+                    resultColumn == JudgeResult.RED_WIN ||
+                    resultDiagonal == JudgeResult.RED_WIN)
+                {
+                    //赤が勝った場合
+                    _uiManager.Winning.text = "Player Red Win!!";
+                }
+                else
+                {
+                    //黒が勝った場合
+                    _uiManager.Winning.text = "Player Black Win!!";
+                }
                 StartCoroutine(_staging.Winning());
             }
             _select.IsSwitch = false;

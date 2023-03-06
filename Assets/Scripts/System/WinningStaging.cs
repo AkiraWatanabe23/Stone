@@ -19,7 +19,7 @@ public class WinningStaging
     {
         _clear.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         _clearEvent?.Invoke();
     }
 }

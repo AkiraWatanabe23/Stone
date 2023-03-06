@@ -157,6 +157,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 233417376, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_Text
+      value: "\u3069\u3063\u3061\u304C\u304B\u3063\u305F\u304B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322008007, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2052486585, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6532375797694777819, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -357,6 +369,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3855479959754747637, guid: c0a1d72cdfd010a47997503b2b775c76, type: 3}
   m_PrefabInstance: {fileID: 729334936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &827701306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 233417376, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
+  m_PrefabInstance: {fileID: 611190142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1006639462
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +612,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1685129269, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _nextScene
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1685129270, guid: adad23296435b10429546285ec1e4919, type: 3}
       propertyPath: _fadePanel
       value: 
@@ -601,6 +628,10 @@ PrefabInstance:
       propertyPath: _startElement
       value: 
       objectReference: {fileID: 2093815631}
+    - target: {fileID: 7097235712002291573, guid: adad23296435b10429546285ec1e4919, type: 3}
+      propertyPath: _winning
+      value: 
+      objectReference: {fileID: 827701306}
     - target: {fileID: 7097235712002291573, guid: adad23296435b10429546285ec1e4919, type: 3}
       propertyPath: _helpImage
       value: 
