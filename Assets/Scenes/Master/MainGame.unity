@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2532279, g: 0.2169415, b: 0.23314235, a: 1}
+  m_IndirectSpecularColor: {r: 0.25322068, g: 0.21698213, b: 0.23318088, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -157,68 +157,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -450
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548338, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -150
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_Text
-      value: 'Click shift to
-
-        return TitleScene'
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: fd12147ecbdf7fc4cb55590b6969f6d3, type: 3}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_MinSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_Alignment
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_FontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_VerticalOverflow
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212548339, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
-      propertyPath: m_FontData.m_HorizontalOverflow
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6532375797694777819, guid: 353a6ddb681e0174a9a317e49a8ee70a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

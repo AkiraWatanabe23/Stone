@@ -13,8 +13,8 @@ public class CamRotate : MonoBehaviour
 
     private void Update()
     {
-        //他のArrowキーを使う場合と区別するため、LeftShiftを押しながらにする
-        if (Input.GetKey(KeyCode.LeftShift))
+        //他のArrowキーを使う場合と区別するため、Shiftを押しながらにする
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             float angleX = Input.GetAxis("Horizontal") * _rotateSpeed.x * 0.1f;
 

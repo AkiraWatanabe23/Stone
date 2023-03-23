@@ -24,8 +24,8 @@ public class Events : MonoBehaviour
             _closeEvent?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) ||
-            Input.GetKeyDown(KeyCode.RightShift))
+        if (Input.GetKeyDown(KeyCode.LeftControl) ||
+            Input.GetKeyDown(KeyCode.RightControl))
         {
             Debug.Log("タイトルに戻ります");
             _toTitleEvent?.Invoke();
